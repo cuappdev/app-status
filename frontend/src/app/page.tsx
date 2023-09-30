@@ -12,7 +12,7 @@ export default function Home() {
   } as App;
   return (
     <div className="bg-gray-08 flex flex-col items-center justify-center h-screen w-full">
-      <div className=" h-full w-full">
+      <div className="h-full w-full">
         <TimelineCard app={test} />
       </div>
     </div>

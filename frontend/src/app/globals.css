@@ -64,5 +64,4 @@
   .border-other {
     @apply border-stroke-colors border-2 box-border;
   }
-  
 }

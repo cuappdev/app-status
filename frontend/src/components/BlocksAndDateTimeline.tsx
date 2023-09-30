@@ -32,20 +32,36 @@ export default function BlocksAndDateTimeline({
     }
   }
   timeline.reverse();
-  console.log(timeline);
 
   const TimelineBlock = ({ severity }: { severity: Severity | undefined }) => {
     switch (severity) {
       case Severity.High: {
         return (
-          <div className="rounded-xl h-4 hover:h-5 transition ease-in-out  bg-failure" />
+          <span
+            className="tooltip tooltip-base-100 rounded-xl h-4 hover:h-5 transition-all ease-in-out bg-failure"
+            data-tip="Total outage"
+          />
         );
       }
       case Severity.Medium: {
-        return <div className="rounded-xl h-8 bg-warning" />;
+        return (
+          // <div className="tooltip" data-tip="hello">
+          <span
+            className="tooltip rounded-xl h-8 hover:h-9 transition-all ease-in-out bg-warning"
+            data-tip="Partial Outage"
+          />
+          // </div>
+        );
       }
       default: {
-        return <div className="rounded-xl h-12 bg-success" />;
+        return (
+          // <div className="tooltip" data-tip="hello">
+          <span
+            className="tooltip rounded-xl h-12 hover:h-13 transition-all ease-in-out bg-success"
+            data-tip="Operational"
+          />
+          // </div>
+        );
       }
     }
   };
@@ -56,7 +72,7 @@ export default function BlocksAndDateTimeline({
       <div className="mobile:hidden">
         <p className="text-gray-06 p">Timeline</p>
         <div className="h-2" />
-        <div className="grid grid-flow-col gap-1 justify-stretch h-12 items-end">
+        <div className="grid grid-flow-col gap-1 justify-stretch h-13 items-end">
           {timeline.slice(timeline.length - 24).map((elt, i) => (
             <TimelineBlock severity={elt} key={i} />
           ))}
@@ -71,7 +87,7 @@ export default function BlocksAndDateTimeline({
       <div className="hidden mobile:block md-desktop:hidden">
         <p className="text-gray-06 p1">Timeline</p>
         <div className="h-2" />
-        <div className="grid grid-flow-col  gap-1 justify-stretch h-12 items-end">
+        <div className="grid grid-flow-col  gap-1 justify-stretch h-13 items-end">
           {timeline.slice(timeline.length - 48).map((elt, i) => (
             <TimelineBlock severity={elt} key={i} />
           ))}
@@ -86,7 +102,7 @@ export default function BlocksAndDateTimeline({
       <div className="hidden md-desktop:flex flex-col">
         <p className="text-gray-06 p1">Timeline</p>
         <div className="h-2" />
-        <div className="grid grid-flow-col gap-1 justify-stretch h-12 items-end">
+        <div className="grid grid-flow-col gap-1 justify-stretch h-13 items-end">
           {timeline.map((elt, i) => (
             <TimelineBlock severity={elt} key={i} />
           ))}
