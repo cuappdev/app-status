@@ -1,15 +1,13 @@
 import { BACKEND_URL } from "@/constants";
 import { useState } from "react";
-import IssueIcon from "./svg/IssueIcon";
+import BellIcon from "./svg/BellIcon";
 
-interface ReportBugProps {
+interface SubscribeProps {
   appNames: string[];
 }
 
-export const ReportBug = ({ appNames }: ReportBugProps) => {
-  const descMaxLen = 500;
+export const Subscribe = ({ appNames }: SubscribeProps) => {
   const [email, setEmail] = useState("");
-  const [desc, setDesc] = useState("");
   const [appName, setAppName] = useState("");
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(false);
@@ -21,14 +19,13 @@ export const ReportBug = ({ appNames }: ReportBugProps) => {
     return email.match(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/);
   };
 
-  const submitBugReport = async () => {
-    const response = await fetch(`${BACKEND_URL}/bug-reports/`, {
+  const submitSubscription = async () => {
+    const response = await fetch(`${BACKEND_URL}/subscribe/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         email: email,
         appName: appName,
-        desc: desc,
         createdTime: new Date().toString(),
       }),
     });
@@ -36,7 +33,6 @@ export const ReportBug = ({ appNames }: ReportBugProps) => {
     const responseJson = await response.json();
     if (responseJson.success) {
       setEmail("");
-      setDesc("");
       setAppName("");
       setSucceeded(true);
     } else {
@@ -44,17 +40,17 @@ export const ReportBug = ({ appNames }: ReportBugProps) => {
     }
   };
 
-  let areFieldsPopulated = email !== "" && desc !== "" && appName !== "";
+  let areFieldsPopulated = email !== "" && appName !== "";
 
   return (
     <div className="card w-full p-6 bg-white gap-4">
       <div className="flex flex-row align-middle gap-4">
         <div className="flex justify-center items-center">
-          <IssueIcon />
+          <BellIcon />
         </div>
         <div className="flex flex-col">
-          <h5 className="text-gray-08">Experiencing issues?</h5>
-          <p className="text-gray-04 p1">Report a bug with this form.</p>
+          <h5 className="text-gray-08">Subscribe to Status Updates</h5>
+          <p className="text-gray-04 p1">You will be notified by email.</p>
         </div>
       </div>
       <div className="form-control flex flex-col gap-2">
@@ -94,34 +90,14 @@ export const ReportBug = ({ appNames }: ReportBugProps) => {
           </ul>
         </div>
       </div>
-      <div className="flex flex-col gap-2">
-        <h6 className="text-gray-05">Description</h6>
-        <div className="form-control">
-          <textarea
-            className="textarea textarea-bordered h-24 text-gray-06 placeholder:text-gray-03 h6"
-            placeholder="What is going wrong?"
-            onChange={(event) => {
-              setDesc(event.target.value);
-            }}
-            maxLength={descMaxLen}
-            value={desc}
-          />
-          <label className="label">
-            <span className="label-text-alt"></span>
-            <span className="label-text-alt text-gray-05">
-              {desc.length}/{descMaxLen}
-            </span>
-          </label>
-        </div>
-      </div>
       <button
-        className={`btn py-4 ${areFieldsPopulated ? "bg-ruby" : "bg-gray-00"} ${
-          areFieldsPopulated ? "text-white" : "text-gray-03"
-        }`}
+        className={`btn py-4 mt-4 ${
+          areFieldsPopulated ? "bg-ruby" : "bg-gray-00"
+        } ${areFieldsPopulated ? "text-white" : "text-gray-03"}`}
         disabled={!areFieldsPopulated || validateEmail() == null}
-        onClick={submitBugReport}
+        onClick={submitSubscription}
       >
-        Submit Bug Report
+        Get Notified for Updates
       </button>
       {succeeded && (
         <div className="alert alert-success">
