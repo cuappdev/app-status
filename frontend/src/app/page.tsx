@@ -1,4 +1,9 @@
 "use client";
+import { Subscribe } from "@/components/Subscribe";
+import Overview from "@/components/Overview";
+import { ReportBug } from "@/components/ReportBug";
+import { App } from "@/models/App";
+import { Severity } from "@/models/DownInterval";
 import TimelineCard from "@/components/TimelineCard";
 import { App } from "@/models/App";
 import { DownInterval, Severity } from "@/models/DownInterval";
@@ -11,13 +16,23 @@ export default function Home() {
     imageUrl: undefined,
   } as App;
   return (
-    <div className="bg-gray-08 flex flex-col items-center justify-center h-screen w-full">
-      <div className="h-full w-full">
-        <TimelineCard app={test} />
+    <div className="bg-gray-bug flex flex-col items-center justify-center px-4 py-6 gap-4">
+      <div className="flex flex-col gap-2">
+        <h2>Platform Status</h2>
+        <p className="p1 text-gray-04">
+          Any issues with our applications will be shown below.
+        </p>
       </div>
+      <Overview apps={dummyApps} />
+      <ReportBug appNames={["Volume", "Scooped"]} />
+      <Subscribe appNames={["Volume", "Scooped"]} />
+          <TimelineCard app={test} />
+
     </div>
   );
 }
+
+
 const hoursAgo10 = new Date();
 hoursAgo10.setHours(new Date().getHours() - 5);
 hoursAgo10.setMinutes(new Date().getMinutes() + 1);

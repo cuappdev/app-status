@@ -5,7 +5,7 @@ import AppController from "./controllers";
 const appRouter = Router();
 
 appRouter.get("/", async (req, res) => {
-  res.status(200).send(await AppController.getApps());
+  res.status(200).send(successJson(await AppController.getApps()));
 });
 
 appRouter.get("/:id", async (req, res, next) => {
@@ -48,6 +48,7 @@ appRouter.post("/app-fixed/:id", async (req, res, next) => {
   await AppController.appFixed(req.params.id, new Date(req.body.date)).catch(
     (err) => next(err)
   );
+  await AppController.sendStatusEmails(req.params.id, "Down", "Up and running");
   res.status(200).send(successJson("App fixed"));
 });
 
