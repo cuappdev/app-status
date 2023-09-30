@@ -2,8 +2,19 @@ import { getModelForClass, prop } from "@typegoose/typegoose";
 
 enum Severity {
   Medium,
-  Heigh,
+  High,
 }
+
+const stringToSeverityEnum = (severityString: string) => {
+  switch (severityString) {
+    case "Medium":
+      return Severity.Medium;
+    case "High":
+      return Severity.High;
+    default:
+      throw new Error("Invalid severity provided");
+  }
+};
 
 class DownInterval {
   @prop()
@@ -39,14 +50,15 @@ class App {
   downIntervals: DownInterval[];
 
   @prop()
-  lastUpdated?: Date;
+  lastUpdated: Date;
 
   constructor(name: string) {
     this.name = name;
     this.downIntervals = [];
+    this.lastUpdated = new Date();
   }
 }
 
 const AppModel = getModelForClass(App);
 
-export { App, AppModel };
+export { App, AppModel, DownInterval, stringToSeverityEnum };
