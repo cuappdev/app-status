@@ -1,6 +1,7 @@
 import { BACKEND_URL } from "@/constants";
 import { useState } from "react";
 import BellIcon from "./svg/BellIcon";
+import WarningIcon from "./svg/WarningIcon";
 
 interface SubscribeProps {
   appNames: string[];
@@ -66,7 +67,12 @@ export const Subscribe = ({ appNames }: SubscribeProps) => {
           required
         />
         {validateEmail() == null && (
-          <label className="text-xs mt-1">Please enter a valid email</label>
+          <div className="flex flex-row gap-2 items-center">
+            <WarningIcon />
+            <label className="p2 text-gray-05">
+              Please enter a valid email
+            </label>
+          </div>
         )}
       </div>
       <div className="flex flex-col gap-2">
