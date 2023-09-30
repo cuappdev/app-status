@@ -1,11 +1,10 @@
 import { App } from "@/models/App";
+import { DEFAULT_APP_IMG } from "@/constants";
 import { Severity } from "@/models/DownInterval";
 import Image from "next/image";
 import OperationalIcon from "./svg/OperationalIcon";
 import OutageIcon from "./svg/OutageIcon";
 import WarningIcon from "./svg/WarningIcon";
-
-import { DEFAULT_APP_IMG } from "../../constants";
 
 interface AppProps {
   apps: App[];
@@ -23,14 +22,23 @@ interface AppRowProps {
 }
 
 export default function Overview({ apps }: AppProps) {
+  console.log(apps);
+
   const operationalApps = apps.filter((app) => {
-    return app.downIntervals.length === 0;
+    if (app.downIntervals.length === 0) {
+      return true;
+    }
+    const lastInterval = app.downIntervals[app.downIntervals.length - 1];
+    if (lastInterval) {
+      return lastInterval.endTime;
+    }
+    return false;
   });
 
   const partialOutageApps = apps.filter((app) => {
     const lastInterval = app.downIntervals[app.downIntervals.length - 1];
     if (lastInterval) {
-      return lastInterval.severity === Severity.Medium;
+      return lastInterval.severity === Severity.Medium && !lastInterval.endTime;
     }
     return false;
   });
@@ -38,7 +46,7 @@ export default function Overview({ apps }: AppProps) {
   const totalOutageApps = apps.filter((app) => {
     const lastInterval = app.downIntervals[app.downIntervals.length - 1];
     if (lastInterval) {
-      return lastInterval.severity === Severity.High;
+      return lastInterval.severity === Severity.High && !lastInterval.endTime;
     }
     return false;
   });
@@ -100,11 +108,11 @@ function AppRow(appRowProps: AppRowProps) {
           return (
             <Image
               key={app.id}
-              src={DEFAULT_APP_IMG}
+              src={app.imageUrl ?? DEFAULT_APP_IMG}
               alt={app.name}
-              width={128}
-              height={128}
-              className="w-16 h-16 sm-desktop:w-10 sm-desktop:h-10"
+              width={1024}
+              height={1024}
+              className="w-16 h-16 rounded-xl sm-desktop:w-10 sm-desktop:h-10 sm-desktop:rounded-lg app-icon-shadow"
             />
           );
         })}
