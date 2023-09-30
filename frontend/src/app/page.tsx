@@ -1,5 +1,3 @@
-import AppIcon from "@/components/AppIcon";
-import Overview from "@/components/Overview";
 import Timeline from "@/components/Timeline";
 import { App } from "@/models/App";
 
@@ -11,7 +9,7 @@ export default function Home() {
     imageUrl: undefined,
   } as App;
   return (
-    <div className="bg-black flex flex-col items-center justify-center h-screen">
+    <div className="bg-white flex flex-col items-center justify-center h-screen rounded-">
       <Timeline app={test} />
     </div>
   );

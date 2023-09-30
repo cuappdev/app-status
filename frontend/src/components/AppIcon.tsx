@@ -7,6 +7,11 @@ export default function AppIcon({
   imageUrl?: string;
 }) {
   return (
-    <img width={60} height={60} src={imageUrl} className="app-icon-shadow" />
+    <img
+      width={60}
+      height={60}
+      src={imageUrl}
+      className="app-icon-shadow rounded-xl"
+    />
   );
 }
