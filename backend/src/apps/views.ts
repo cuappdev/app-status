@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { errorJson, successJson } from "../utils/jsonResponses";
+import { successJson } from "../utils/jsonResponses";
 import AppController from "./controllers";
 
 const appRouter = Router();
@@ -8,13 +8,13 @@ appRouter.get("/", async (req, res) => {
   res.status(200).send(await AppController.getApps());
 });
 
-appRouter.get("/:id", async (req, res) => {
+appRouter.get("/:id", async (req, res, next) => {
   try {
     res
       .status(200)
       .send(successJson(await AppController.getAppById(req.params.id)));
   } catch (err) {
-    res.status(400).send(errorJson(err));
+    next(err);
   }
 });
 
@@ -26,18 +26,27 @@ appRouter.get("/down-intervals/:id", async (req, res) => {
 appRouter.post("/", async (req, res) => {
   res
     .status(201)
-    .send(successJson(await AppController.createApp(req.body.name)));
+    .send(
+      successJson(
+        await AppController.createApp(req.body.name, req.body.imageUrl)
+      )
+    );
 });
 
-appRouter.post("/status/:id", async (req, res) => {
+appRouter.post("/status/:id", async (req, res, next) => {
   await AppController.appStatusChange(
     req.params.id,
     req.body.severity,
     req.body.description,
     req.body.startTime,
     req.body.endTime
-  );
-  res.status(201).send(successJson("status updated"));
+  ).catch((err) => next(err));
+  // res.status(201).send(successJson("status updated"));
+});
+
+appRouter.post("/update-image/:id", async (req, res) => {
+  await AppController.updateImage(req.params.id, req.body.imageUrl);
+  res.status(201).send(successJson(req.body.imageUrl));
 });
 
 export default appRouter;

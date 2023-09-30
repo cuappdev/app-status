@@ -52,7 +52,7 @@
         }
       }
     },
-    "/users/": {
+    "/apps/": {
       "get": {
         "description": "",
         "parameters": [],
@@ -63,32 +63,6 @@
         }
       },
       "post": {
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/customers/": {
-      "get": {
-        "tags": [
-          "Customers"
-        ],
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Customers"
-        ],
         "description": "",
         "parameters": [
           {
@@ -100,13 +74,7 @@
                 "name": {
                   "example": "any"
                 },
-                "age": {
-                  "example": "any"
-                },
-                "title": {
-                  "example": "any"
-                },
-                "company": {
+                "imageUrl": {
                   "example": "any"
                 }
               }
@@ -120,11 +88,29 @@
         }
       }
     },
-    "/customers/{id}": {
+    "/apps/{id}": {
       "get": {
-        "tags": [
-          "Customers"
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/apps/down-intervals/{id}": {
+      "get": {
         "description": "",
         "parameters": [
           {
@@ -141,11 +127,8 @@
         }
       }
     },
-    "/customers/updateName/{id}": {
-      "put": {
-        "tags": [
-          "Customers"
-        ],
+    "/apps/status/{id}": {
+      "post": {
         "description": "",
         "parameters": [
           {
@@ -160,7 +143,16 @@
             "schema": {
               "type": "object",
               "properties": {
-                "name": {
+                "severity": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                },
+                "startTime": {
+                  "example": "any"
+                },
+                "endTime": {
                   "example": "any"
                 }
               }
@@ -168,22 +160,38 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
+          "201": {
+            "description": "Created"
           }
         }
       }
     },
-    "/customers/resetAges": {
+    "/apps/update-image/{id}": {
       "post": {
-        "tags": [
-          "Customers"
-        ],
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "imageUrl": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
-          "200": {
-            "description": "OK"
+          "201": {
+            "description": "Created"
           }
         }
       }

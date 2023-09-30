@@ -35,6 +35,10 @@ class DownInterval {
     startTime: Date,
     endTime?: Date
   ) {
+    if (endTime && startTime > endTime) {
+      throw new Error("Start time cannot occur after end time");
+    }
+
     this.severity = severity;
     this.description = description;
     this.startTime = startTime;
@@ -52,10 +56,14 @@ class App {
   @prop()
   lastUpdated: Date;
 
-  constructor(name: string) {
+  @prop()
+  imageUrl?: string;
+
+  constructor(name: string, imageUrl?: string) {
     this.name = name;
     this.downIntervals = [];
     this.lastUpdated = new Date();
+    this.imageUrl = imageUrl;
   }
 }
 
