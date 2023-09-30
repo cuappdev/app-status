@@ -9,7 +9,7 @@ export default function AppIcon({
   return (
     <img
       src={imageUrl}
-      className="app-icon-shadow rounded-xl w-12 h-12 mobile:h-15 mobile:w-15"
+      className="app-icon-shadow rounded-xl w-12 h-12 sm-tablet:h-15 sm-tablet:w-15"
     />
   );
 }

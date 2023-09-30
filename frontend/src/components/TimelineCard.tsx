@@ -13,12 +13,18 @@ interface ComponentProps {
 
 export default function TimelineCard({ app }: ComponentProps) {
   let severity: Severity | undefined = undefined;
-  if (app.downIntervals[0] != null && app.downIntervals[0].endTime == null) {
-    severity = app.downIntervals[0].severity;
+  const last = app.downIntervals.length - 1;
+  // console.log(`last interval ${app.downIntervals[last]}`);
+  // console.log(`first interval ${app.downIntervals[0]}`);
+  if (
+    app.downIntervals[last] != null &&
+    app.downIntervals[last].endTime == null
+  ) {
+    severity = app.downIntervals[last].severity;
   }
 
   return (
-    <div className="bg-white rounded-xl flex flex-1 flex-col mobile:gap-6 gap-4 items-stretch p-8">
+    <div className="bg-white rounded-xl flex flex-1 flex-col sm-tablet:gap-6 gap-4 items-stretch p-8">
       {/* Outage status */}
       <div className="sm-tablet:hidden flex flex-row justify-center border-other rounded-xl items-center bg-gray-bug px-4 py-2">
         <StatusIcon severity={severity} />
@@ -30,13 +36,13 @@ export default function TimelineCard({ app }: ComponentProps) {
         <AppIcon imageUrl={app.imageUrl} />
         <div className="w-4" />
         <div className="flex flex-col">
-          <div className="mobile:hidden">
+          <div className="sm-tablet:hidden">
             <h5> {app.name} </h5>
           </div>
-          <div className="hidden mobile:flex">
+          <div className="hidden sm-tablet:flex">
             <h4> {app.name} </h4>
           </div>
-          <p className="p3 mobile:p1 text-gray-06 w-full">
+          <p className="p3 sm-tablet:p1 text-gray-06 w-full">
             {`Updated: ${formatUpdateDate(app.lastUpdated)}`}
           </p>
         </div>
@@ -57,10 +63,10 @@ export default function TimelineCard({ app }: ComponentProps) {
         <BugReportBubble
           lastUpdated={
             severity == null
-              ? app.downIntervals[0].endTime!!
-              : app.downIntervals[0].startTime
+              ? app.downIntervals[last].endTime!!
+              : app.downIntervals[last].startTime
           }
-          description={app.downIntervals[0].description}
+          description={app.downIntervals[last].description}
           resolved={severity == null}
         />
       )}

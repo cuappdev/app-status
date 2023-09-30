@@ -11,7 +11,7 @@ export default function BlocksAndDateTimeline({
   const timeline: (Severity | undefined)[] = Array(72).fill(undefined);
   timeline[0] = latestSeverity;
   const future = new Date();
-  future.setHours(future.getHours() + 1);
+  future.setHours(future.getHours() + 20);
 
   const getHoursAgo = (i: number) => {
     const hoursAgo = new Date();
@@ -67,7 +67,7 @@ export default function BlocksAndDateTimeline({
   return (
     <>
       {/* Blocks and Date Mobile */}
-      <div className="mobile:hidden">
+      <div className="sm-tablet:hidden">
         <p className="text-gray-06 p">Timeline</p>
         <div className="h-2" />
         <div className="grid grid-flow-col gap-1 justify-stretch h-13 items-end">
@@ -82,7 +82,7 @@ export default function BlocksAndDateTimeline({
         </div>
       </div>
       {/* Blocks and Date small tablet */}
-      <div className="hidden mobile:block md-desktop:hidden">
+      <div className="hidden sm-tablet:block md-desktop:hidden">
         <p className="text-gray-06 p1">Timeline</p>
         <div className="h-2" />
         <div className="grid grid-flow-col  gap-1 justify-stretch h-13 items-end">
