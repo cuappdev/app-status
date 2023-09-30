@@ -1,6 +1,7 @@
 import { BACKEND_URL } from "@/constants";
 import { useState } from "react";
 import IssueIcon from "./svg/IssueIcon";
+import WarningIcon from "./svg/WarningIcon";
 
 interface ReportBugProps {
   appNames: string[];
@@ -62,7 +63,7 @@ export const ReportBug = ({ appNames }: ReportBugProps) => {
         <input
           type="email"
           placeholder="Enter your email"
-          className={`input input-bordered text-gray-06 placeholder:text-gray-03 p1 w-full" ${
+          className={`input input-bordered text-gray-06 placeholder:text-gray-03 p1 w-full focus:outline-8" ${
             validateEmail() == null ? "input-warning" : ""
           }`}
           onChange={(event) => setEmail(event.target.value)}
@@ -70,7 +71,12 @@ export const ReportBug = ({ appNames }: ReportBugProps) => {
           required
         />
         {validateEmail() == null && (
-          <label className="text-xs mt-1">Please enter a valid email</label>
+          <div className="flex flex-row gap-2 items-center">
+            <WarningIcon />
+            <label className="p2 text-gray-05">
+              Please enter a valid email
+            </label>
+          </div>
         )}
       </div>
       <div className="flex flex-col gap-2">
