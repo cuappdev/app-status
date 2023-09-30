@@ -7,6 +7,7 @@ import appRouter from "./apps/views";
 import bugRouter from "./bugReports/views";
 import { dbConnect } from "./database";
 import jsonErrorHandler from "./middleware/jsonError";
+import subscriberRouter from "./subscribers/views";
 
 const app = express();
 app.use(cors());
@@ -20,6 +21,7 @@ app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(spec));
  */
 app.use("/apps", appRouter);
 app.use("/bug-reports", bugRouter);
+app.use("/subscribers", subscriberRouter);
 
 /**
  * Some dummy routes to illustrate express syntax

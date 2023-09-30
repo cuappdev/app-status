@@ -21,13 +21,12 @@ export const Subscribe = ({ appNames }: SubscribeProps) => {
   };
 
   const submitSubscription = async () => {
-    const response = await fetch(`${BACKEND_URL}/subscribe/`, {
+    const response = await fetch(`${BACKEND_URL}/subscribers/subscribe/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         email: email,
         appName: appName,
-        createdTime: new Date().toString(),
       }),
     });
 
