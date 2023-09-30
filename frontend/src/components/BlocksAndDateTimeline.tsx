@@ -51,8 +51,8 @@ export default function BlocksAndDateTimeline({
   return (
     <>
       {/* Blocks and Date Mobile */}
-      <div className="sm:hidden">
-        <p className="text-gray-06 p3">Timeline</p>
+      <div className="mobile:hidden">
+        <p className="text-gray-06 p">Timeline</p>
         <div className="h-2" />
         <div className="grid grid-flow-col gap-1 justify-stretch h-12 items-end">
           {timeline.slice(timeline.length - 24).map((elt, i) => (
@@ -66,7 +66,7 @@ export default function BlocksAndDateTimeline({
         </div>
       </div>
       {/* Blocks and Date small tablet */}
-      <div className="hidden sm:block lg:hidden">
+      <div className="hidden mobile:block md-desktop:hidden">
         <p className="text-gray-06 p1">Timeline</p>
         <div className="h-2" />
         <div className="grid grid-flow-col  gap-1 justify-stretch h-12 items-end">
@@ -81,7 +81,7 @@ export default function BlocksAndDateTimeline({
         </div>
       </div>
       {/* Blocks and date large */}
-      <div className="hidden lg:flex flex-col">
+      <div className="hidden md-desktop:flex flex-col">
         <p className="text-gray-06 p1">Timeline</p>
         <div className="h-2" />
         <div className="grid grid-flow-col gap-1 justify-stretch h-12 items-end">
