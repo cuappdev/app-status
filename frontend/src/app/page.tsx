@@ -1,9 +1,9 @@
-import Timeline from "@/components/Timeline";
+import Overview from "@/components/Overview";
 
 export default function Home() {
   return (
-    <div className="background-black flex flex-col items-center justify-center h-screen">
-      <Timeline />
+    <div className="bg-black flex flex-col items-center justify-center h-screen">
+      <Overview />
     </div>
   );
 }
