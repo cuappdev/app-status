@@ -5,7 +5,7 @@ import AppController from "./controllers";
 const appRouter = Router();
 
 appRouter.get("/", async (req, res) => {
-  res.status(200).send(await AppController.getApps());
+  res.status(200).send(successJson(await AppController.getApps()));
 });
 
 appRouter.get("/:id", async (req, res, next) => {
