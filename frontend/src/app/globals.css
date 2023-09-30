@@ -50,7 +50,7 @@
     @apply font-pro-text-rg text-[0.75rem] leading-5;
   }
   .app-icon-shadow {
-    @apply shadow-[0px_0px_10px_0px_rgba(36,41,46,0.05)];
+    @apply shadow-[0_0_10px_0_rgba(36,41,46,0.05)];
   }
   .selected-icon-highlight {
     @apply border-solid border-highlight border-2 shadow-[0_0_20px_20px_rgba(74,144,226,0.25)];
