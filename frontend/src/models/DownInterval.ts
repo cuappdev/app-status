@@ -1,10 +1,11 @@
 export interface DownInterval {
-  startDate: Date;
-  endDate: Date;
+  severity: Severity;
   description: string;
-  serverity: Serverity;
+  startTime: Date;
+  endTime?: Date;
 }
-enum Serverity {
+
+enum Severity {
   Medium,
   High,
 }

@@ -4,5 +4,5 @@ export interface App {
   name: string;
   downIntervals: DownInterval[];
   lastUpdated: Date;
-  iconSrc?: string;
+  imageUrl?: string;
 }
