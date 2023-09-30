@@ -44,13 +44,13 @@ export default function Overview({ apps }: AppProps) {
   });
 
   return (
-    <div className="flex flex-col gap-4 bg-white rounded-xl p-6 lg-tablet:p-8 sm-tablet:gap-8">
+    <div className="flex flex-col gap-4 w-full bg-white rounded-xl p-6 lg-tablet:p-8 sm-tablet:gap-8">
       <div className="flex flex-col gap-2">
         <div>
           <h2 className="lg-tablet">Overview</h2>
           <h4 className="mobile:hidden">Overview</h4>
         </div>
-        <p className="p1 text-gray-06">
+        <p className="p1 text-gray-04">
           {partialOutageApps.length > 0 || totalOutageApps.length > 0
             ? "Some of our apps have known issues."
             : "All of our apps are operational. Select each app to see specific status."}

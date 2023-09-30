@@ -40,7 +40,7 @@
   }
 }
 @layer components {
-  .p1 { 
+  .p1 {
     @apply font-pro-text-rg text-[1rem] leading-6;
   }
   .p2 {
@@ -48,6 +48,9 @@
   }
   .p3 {
     @apply font-pro-text-rg text-[0.75rem] leading-5;
+  }
+  .h6 {
+    @apply font-pro-text-md text-[1rem] leading-6;
   }
   .app-icon-shadow {
     @apply shadow-[0_0_10px_0_rgba(36,41,46,0.05)];
@@ -64,5 +67,4 @@
   .border-other {
     @apply border-stroke-colors border-2 box-border;
   }
-  
 }
