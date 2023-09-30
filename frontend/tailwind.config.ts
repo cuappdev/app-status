@@ -13,20 +13,23 @@ const config: Config = {
       "pro-text-md": ["pro-text-md", "serif"],
       "pro-text-rg": ["pro-text-rg", "serif"],
     },
-    colors: {
-      success: "#3AC078",
-      warning: "#EAA800",
-      failure: "#FF6860",
-      ruby: "#CA4238",
-      highlight: "#BACCFA",
-      "gray-08": "#24292E",
-      "gray-07": "#2F363D",
-      "gray-06": "#444D56",
-      "gray-05": "#586069",
-      "gray-03": "#959DA5",
-      "gray-00": "#EFF1F4",
-      "stroke-colors": "#E5E6EA",
-      "gray-bug": "#F0F4F8",
+    extend: {
+      colors: {
+        success: "#3AC078",
+        warning: "#EAA800",
+        failure: "#FF6860",
+        ruby: "#CA4238",
+        highlight: "#BACCFA",
+        "gray-08": "#24292E",
+        "gray-07": "#2F363D",
+        "gray-06": "#444D56",
+        "gray-05": "#586069",
+        "gray-04": "#6A737D",
+        "gray-03": "#959DA5",
+        "gray-00": "#EFF1F4",
+        "stroke-colors": "#E5E6EA",
+        "gray-bug": "#F0F4F8",
+      },
     },
     screens: {
       "2xl": "1920px",
@@ -37,6 +40,9 @@ const config: Config = {
       xs: "300px",
     },
   },
-  plugins: [],
+  daisyui: {
+    themes: ["light"],
+  },
+  plugins: [require("daisyui")],
 };
 export default config;
