@@ -1,4 +1,5 @@
 import bodyParser from "body-parser";
+import cors from "cors";
 import express from "express";
 import swaggerUI from "swagger-ui-express";
 import spec from "../api-spec.json";
@@ -8,6 +9,7 @@ import { dbConnect } from "./database";
 import jsonErrorHandler from "./middleware/jsonError";
 
 const app = express();
+app.use(cors());
 
 // Middleware to parse json request bodies
 app.use(bodyParser.json());
