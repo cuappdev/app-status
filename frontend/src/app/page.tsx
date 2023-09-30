@@ -35,10 +35,20 @@ export default function Home() {
             Any issues with our applications will be shown below.
           </p>
         </div>
-        <Overview apps={apps} />
-        <ReportBug appNames={["Volume", "Scooped"]} />
-        <Subscribe appNames={["Volume", "Scooped"]} />
-        <Timeline apps={apps} />
+        <div className="flex flex-col sm-desktop:hidden w-full gap-4">
+          <Overview apps={apps} />
+          <Timeline apps={apps} />
+          <ReportBug appNames={["Volume", "Scooped"]} />
+          <Subscribe appNames={["Volume", "Scooped"]} />
+        </div>
+        <div className="flex-row hidden sm-desktop:flex gap-4 w-full">
+          <div className="flex flex-col gap-4 sm-desktop:w-[540px]">
+            <Overview apps={apps} />
+            <ReportBug appNames={["Volume", "Scooped"]} />
+            <Subscribe appNames={["Volume", "Scooped"]} />
+          </div>
+          <Timeline apps={apps} />
+        </div>
       </div>
     </div>
   );
