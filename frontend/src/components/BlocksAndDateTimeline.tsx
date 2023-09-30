@@ -36,7 +36,7 @@ export default function BlocksAndDateTimeline({
       case Severity.High: {
         return (
           <span
-            className="tooltip tooltip-base-100 rounded-xl h-4 hover:h-5 transition-all ease-in-out bg-failure"
+            className="tooltip tooltip-info rounded-xl h-4 hover:h-5 transition-all ease-in-out bg-failure"
             data-tip="Total outage"
           />
         );
@@ -45,7 +45,7 @@ export default function BlocksAndDateTimeline({
         return (
           // <div className="tooltip" data-tip="hello">
           <span
-            className="tooltip rounded-xl h-8 hover:h-9 transition-all ease-in-out bg-warning"
+            className="tooltip tooltip-info rounded-xl h-8 hover:h-9 transition-all ease-in-out bg-warning"
             data-tip="Partial Outage"
           />
           // </div>
@@ -55,7 +55,7 @@ export default function BlocksAndDateTimeline({
         return (
           // <div className="tooltip" data-tip="hello">
           <span
-            className="tooltip rounded-xl h-12 hover:h-13 transition-all ease-in-out bg-success"
+            className="tooltip tooltip-info rounded-xl h-12 hover:h-13 transition-all ease-in-out bg-success"
             data-tip="Operational"
           />
           // </div>
