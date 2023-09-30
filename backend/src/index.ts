@@ -4,6 +4,7 @@ import swaggerUI from "swagger-ui-express";
 import spec from "../api-spec.json";
 import appRouter from "./apps/views";
 import { dbConnect } from "./database";
+import jsonErrorHandler from "./middleware/jsonError";
 
 const app = express();
 
@@ -26,6 +27,8 @@ app.get("/", function (req, res) {
 app.post("/", (req, res) => {
   res.send(req.body);
 });
+
+app.use(jsonErrorHandler);
 
 app.listen(process.env.PORT || 8000, async () => {
   console.log("✅ Server is up and running");
