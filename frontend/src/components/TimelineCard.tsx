@@ -1,16 +1,11 @@
-"useclient";
+"use client";
 import { App } from "@/models/App";
 import { Severity } from "@/models/DownInterval";
-import {
-  formatSeverity,
-  formatUpdateDate,
-  severityToBgColor,
-} from "@/utilities";
+import { formatSeverity, formatUpdateDate } from "@/utilities";
 import AppIcon from "./AppIcon";
-import StatusIcon from "./StatusIcon";
 import BlocksAndDateTimeline from "./BlocksAndDateTimeline";
-import { time } from "console";
 import BugReportBubble from "./BugReportBubble";
+import StatusIcon from "./StatusIcon";
 
 interface ComponentProps {
   app: App;
@@ -57,6 +52,7 @@ export default function TimelineCard({ app }: ComponentProps) {
         downIntervals={app.downIntervals}
         latestSeverity={severity}
       />
+
       {severity != undefined && (
         <BugReportBubble
           lastUpdated={

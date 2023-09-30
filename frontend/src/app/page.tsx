@@ -1,9 +1,7 @@
 "use client";
-import { Subscribe } from "@/components/Subscribe";
 import Overview from "@/components/Overview";
 import { ReportBug } from "@/components/ReportBug";
-import { App } from "@/models/App";
-import { Severity } from "@/models/DownInterval";
+import { Subscribe } from "@/components/Subscribe";
 import TimelineCard from "@/components/TimelineCard";
 import { App } from "@/models/App";
 import { DownInterval, Severity } from "@/models/DownInterval";
@@ -26,12 +24,10 @@ export default function Home() {
       <Overview apps={dummyApps} />
       <ReportBug appNames={["Volume", "Scooped"]} />
       <Subscribe appNames={["Volume", "Scooped"]} />
-          <TimelineCard app={test} />
-
+      <TimelineCard app={test} />
     </div>
   );
 }
-
 
 const hoursAgo10 = new Date();
 hoursAgo10.setHours(new Date().getHours() - 5);
