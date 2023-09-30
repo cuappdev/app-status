@@ -80,7 +80,7 @@ export const Subscribe = ({ appNames }: SubscribeProps) => {
           <input
             type="text"
             placeholder="Select an app..."
-            className="input input-bordered text-gray-06 placeholder:text-gray-03 p1 w-full"
+            className="input input-bordered text-gray-06 placeholder:text-gray-03 p1 w-full caret-transparent cursor-pointer"
             value={appName}
           />
           <ul
