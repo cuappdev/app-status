@@ -48,6 +48,7 @@ appRouter.post("/app-fixed/:id", async (req, res, next) => {
   await AppController.appFixed(req.params.id, new Date(req.body.date)).catch(
     (err) => next(err)
   );
+  await AppController.sendStatusEmails(req.params.id, "Down", "Up and running");
   res.status(200).send(successJson("App fixed"));
 });
 
