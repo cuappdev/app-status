@@ -41,7 +41,7 @@ appRouter.post("/status/:id", async (req, res, next) => {
     req.body.startTime,
     req.body.endTime
   ).catch((err) => next(err));
-  // res.status(201).send(successJson("status updated"));
+  res.status(201).send(successJson("status updated"));
 });
 
 appRouter.post("/update-image/:id", async (req, res) => {
