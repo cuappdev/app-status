@@ -13,16 +13,18 @@ interface AppsResponse {
 
 export default function Home() {
   const [apps, setApps] = useState<any[]>([]);
+  const [appNames, setAppNames] = useState<string[]>([]);
 
   useEffect(() => {
     (async () => {
-      console.log("HEER");
       const response = await fetch(`${BACKEND_URL}/apps/`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
 
-      setApps(((await response.json()) as AppsResponse).data);
+      const apps = ((await response.json()) as AppsResponse).data;
+      setApps(apps);
+      setAppNames(apps.map((app) => app.name));
     })();
   }, []);
 
@@ -36,8 +38,8 @@ export default function Home() {
           </p>
         </div>
         <Overview apps={apps} />
-        <ReportBug appNames={["Volume", "Scooped"]} />
-        <Subscribe appNames={["Volume", "Scooped"]} />
+        <ReportBug appNames={appNames} />
+        <Subscribe appNames={appNames} />
         <Timeline apps={apps} />
       </div>
     </div>
