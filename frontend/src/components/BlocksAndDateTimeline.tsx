@@ -11,7 +11,7 @@ export default function BlocksAndDateTimeline({
   const timeline: (Severity | undefined)[] = Array(72).fill(undefined);
   timeline[0] = latestSeverity;
   const future = new Date();
-  future.setHours(future.getHours() + 1);
+  future.setHours(future.getHours() + 20);
 
   const getHoursAgo = (i: number) => {
     const hoursAgo = new Date();
