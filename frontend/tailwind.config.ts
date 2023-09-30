@@ -23,10 +23,12 @@ const config: Config = {
       "gray-07": "#2F363D",
       "gray-06": "#444D56",
       "gray-05": "#586069",
+      "gray-04": "#6A737D",
       "gray-03": "#959DA5",
       "gray-00": "#EFF1F4",
       "stroke-colors": "#E5E6EA",
       "gray-bug": "#F0F4F8",
+      white: "#FFFFFF",
     },
     screens: {
       "2xl": "1920px",
@@ -35,6 +37,14 @@ const config: Config = {
       md: "760px",
       sm: "480px",
       xs: "300px",
+    },
+    extend: {
+      height: {
+        "15": "60px",
+      },
+      width: {
+        "15": "60px",
+      },
     },
   },
   plugins: [],

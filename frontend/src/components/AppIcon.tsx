@@ -8,10 +8,8 @@ export default function AppIcon({
 }) {
   return (
     <img
-      width={60}
-      height={60}
       src={imageUrl}
-      className="app-icon-shadow rounded-xl"
+      className="app-icon-shadow rounded-xl w-12 h-12 sm:h-15 sm:w-15"
     />
   );
 }
