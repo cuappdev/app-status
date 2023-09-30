@@ -41,6 +41,12 @@ const appStatusChange = async (
   await appDocument.save();
 };
 
+const appFixed = async (id: string, fixTime: Date) => {
+  let app = (await getAppById(id))!;
+  app.downIntervals[app.downIntervals.length - 1].endTime = fixTime;
+  await app.save();
+};
+
 const getAppDownIntervals = async (id: string) => {
   return (await getAppById(id))?.downIntervals;
 };
@@ -56,6 +62,7 @@ export default {
   getAppById,
   createApp,
   appStatusChange,
+  appFixed,
   getAppDownIntervals,
   updateImage,
 };

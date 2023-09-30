@@ -1,6 +1,10 @@
+"use client";
+
 import Overview from "@/components/Overview";
 import { App } from "@/models/App";
 import { Severity } from "@/models/DownInterval";
+import { ReportBug } from "@/components/ReportBug";
+import Timeline from "@/components/Timeline";
 
 export default function Home() {
   return (

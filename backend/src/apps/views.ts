@@ -5,7 +5,7 @@ import AppController from "./controllers";
 const appRouter = Router();
 
 appRouter.get("/", async (req, res) => {
-  res.status(200).send(await AppController.getApps());
+  res.status(200).send(successJson(await AppController.getApps()));
 });
 
 appRouter.get("/:id", async (req, res, next) => {
@@ -33,7 +33,7 @@ appRouter.post("/", async (req, res) => {
     );
 });
 
-appRouter.post("/status/:id", async (req, res, next) => {
+appRouter.post("/app-down/:id", async (req, res, next) => {
   await AppController.appStatusChange(
     req.params.id,
     req.body.severity,
@@ -42,6 +42,13 @@ appRouter.post("/status/:id", async (req, res, next) => {
     req.body.endTime
   ).catch((err) => next(err));
   res.status(201).send(successJson("status updated"));
+});
+
+appRouter.post("/app-fixed/:id", async (req, res, next) => {
+  await AppController.appFixed(req.params.id, new Date(req.body.date)).catch(
+    (err) => next(err)
+  );
+  res.status(200).send(successJson("App fixed"));
 });
 
 appRouter.post("/update-image/:id", async (req, res) => {

@@ -24,6 +24,7 @@ const config: Config = {
         "gray-07": "#2F363D",
         "gray-06": "#444D56",
         "gray-05": "#586069",
+        "gray-04": "#6A737D",
         "gray-03": "#959DA5",
         "gray-00": "#EFF1F4",
         "stroke-colors": "#E5E6EA",
@@ -39,6 +40,9 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  daisyui: {
+    themes: ["light"],
+  },
+  plugins: [require("daisyui")],
 };
 export default config;
