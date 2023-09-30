@@ -37,7 +37,9 @@ export default function BlocksAndDateTimeline({
   const TimelineBlock = ({ severity }: { severity: Severity | undefined }) => {
     switch (severity) {
       case Severity.High: {
-        return <div className="rounded-xl h-4 bg-failure" />;
+        return (
+          <div className="rounded-xl h-4 hover:h-5 transition ease-in-out  bg-failure" />
+        );
       }
       case Severity.Medium: {
         return <div className="rounded-xl h-8 bg-warning" />;
