@@ -1,15 +1,16 @@
 "use client";
 
 import Overview from "@/components/Overview";
+import { ReportBug } from "@/components/ReportBug";
 import { App } from "@/models/App";
 import { Severity } from "@/models/DownInterval";
-import { ReportBug } from "@/components/ReportBug";
-import Timeline from "@/components/Timeline";
 
 export default function Home() {
   return (
-    <div className="bg-black flex flex-col items-center justify-center h-screen">
+    <div className="bg-gray-bug flex flex-col items-center justify-center">
       <Overview apps={dummyApps} />
+      <div className="mb-[16px]" />
+      <ReportBug appNames={["Volume", "Scooped"]} />
     </div>
   );
 }
