@@ -48,7 +48,14 @@ const config: Config = {
     },
   },
   daisyui: {
-    themes: ["light"],
+    themes: [
+      {
+        light: {
+          ...require("daisyui/src/theming/themes")["[data-theme=light]"],
+          info: "#EFF1F4",
+        },
+      },
+    ],
   },
   plugins: [require("daisyui")],
 };
