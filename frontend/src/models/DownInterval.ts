@@ -5,7 +5,7 @@ export interface DownInterval {
   endTime?: Date;
 }
 
-enum Severity {
+export enum Severity {
   Medium,
   High,
 }
