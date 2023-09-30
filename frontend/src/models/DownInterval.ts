@@ -1,8 +1,8 @@
 export interface DownInterval {
   severity: Severity;
   description: string;
-  startTime: Date;
-  endTime?: Date;
+  startTime: string;
+  endTime?: string;
 }
 
 export enum Severity {

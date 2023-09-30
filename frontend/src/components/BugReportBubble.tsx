@@ -1,12 +1,11 @@
 import { formatUpdateDate } from "@/utilities";
-import React from "react";
 
 export default function BugReportBubble({
   lastUpdated,
   resolved,
   description,
 }: {
-  lastUpdated: Date;
+  lastUpdated: string;
   resolved: boolean;
   description: string;
 }) {

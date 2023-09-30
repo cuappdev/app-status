@@ -4,6 +4,6 @@ export interface App {
   id: string;
   name: string;
   downIntervals: DownInterval[];
-  lastUpdated: Date;
+  lastUpdated: string;
   imageUrl?: string;
 }

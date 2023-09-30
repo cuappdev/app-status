@@ -27,7 +27,9 @@ function severityToStyle(s: Severity | undefined): string {
     }
   }
 }
-function formatUpdateDate(d: Date): string {
+function formatUpdateDate(d: string): string {
+  let date = new Date(d);
+
   const formattedDate = new Intl.DateTimeFormat("en-US", {
     year: "numeric",
     month: "short",
@@ -35,7 +37,7 @@ function formatUpdateDate(d: Date): string {
     hour: "2-digit",
     minute: "2-digit",
     hour12: true,
-  }).format(d);
+  }).format(date);
   return formattedDate;
 }
 

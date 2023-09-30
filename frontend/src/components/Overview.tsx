@@ -1,5 +1,5 @@
-import { App } from "@/models/App";
 import { DEFAULT_APP_IMG } from "@/constants";
+import { App } from "@/models/App";
 import { Severity } from "@/models/DownInterval";
 import Image from "next/image";
 import OperationalIcon from "./svg/OperationalIcon";
@@ -22,8 +22,6 @@ interface AppRowProps {
 }
 
 export default function Overview({ apps }: AppProps) {
-  console.log(apps);
-
   const operationalApps = apps.filter((app) => {
     if (app.downIntervals.length === 0) {
       return true;

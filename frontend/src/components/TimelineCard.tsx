@@ -27,7 +27,7 @@ export default function TimelineCard({ app }: ComponentProps) {
       </div>
       {/* Header row */}
       <div className="flex flex-row items-center ">
-        <AppIcon imageUrl={undefined} />
+        <AppIcon imageUrl={app.imageUrl} />
         <div className="w-4" />
         <div className="flex flex-col">
           <div className="mobile:hidden">

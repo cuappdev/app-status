@@ -1,7 +1,5 @@
 "useclient";
 import { DownInterval, Severity } from "@/models/DownInterval";
-import React from "react";
-import { severityToBgColor } from "@/utilities";
 
 export default function BlocksAndDateTimeline({
   downIntervals,
@@ -22,10 +20,10 @@ export default function BlocksAndDateTimeline({
   };
 
   for (let i = 1; i < 72; i++) {
-    for (const { startTime, endTime, severity } of downIntervals) {
-      const trueEnd = endTime ?? future;
+    for (let { startTime, endTime, severity } of downIntervals) {
+      const trueEnd = endTime ? new Date(endTime) : future;
       const iHoursAgo = getHoursAgo(i);
-      if (startTime <= iHoursAgo && iHoursAgo <= trueEnd) {
+      if (new Date(startTime) <= iHoursAgo && iHoursAgo <= trueEnd) {
         timeline[i] = severity;
         break;
       }

@@ -16,7 +16,7 @@ export default function Home() {
 
   useEffect(() => {
     (async () => {
-      console.log(`${BACKEND_URL}/apps/`);
+      console.log("HEER");
       const response = await fetch(`${BACKEND_URL}/apps/`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },

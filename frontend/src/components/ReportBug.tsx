@@ -87,6 +87,7 @@ export const ReportBug = ({ appNames }: ReportBugProps) => {
             placeholder="Select an app..."
             className="input input-bordered text-gray-06 placeholder:text-gray-03 p1 w-full"
             value={appName}
+            readOnly
           />
           <ul
             tabIndex={0}
