@@ -1,7 +1,9 @@
 import { App } from "@/models/App";
 import { Severity } from "@/models/DownInterval";
-import CheckSVG from "./svg/CheckSVG";
 import Image from "next/image";
+import OperationalIcon from "./svg/OperationalIcon";
+import OutageIcon from "./svg/OutageIcon";
+import WarningIcon from "./svg/WarningIcon";
 
 import { DEFAULT_APP_IMG } from "../../constants";
 
@@ -42,18 +44,30 @@ export default function Overview({ apps }: AppProps) {
   });
 
   return (
-    <div className="flex flex-col gap-4 bg-white rounded-xl p-8">
-      <div>
-        <h4>Overview</h4>
+    <div className="flex flex-col gap-4 bg-white rounded-xl p-6 lg-tablet:p-8 sm-tablet:gap-8">
+      <div className="flex flex-col gap-2">
+        <div>
+          <h2 className="lg-tablet">Overview</h2>
+          <h4 className="mobile:hidden">Overview</h4>
+        </div>
         <p className="p1 text-gray-06">
-          All of our apps are operational. Select each app to see specific
-          status.
+          {partialOutageApps.length > 0 || totalOutageApps.length > 0
+            ? "Some of our apps have known issues."
+            : "All of our apps are operational. Select each app to see specific status."}
         </p>
       </div>
 
-      <AppRow status={Status.Operational} apps={operationalApps} />
-      <AppRow status={Status.Partial} apps={partialOutageApps} />
-      <AppRow status={Status.Total} apps={totalOutageApps} />
+      <div className="flex flex-col gap-6">
+        {operationalApps.length !== 0 && (
+          <AppRow status={Status.Operational} apps={operationalApps} />
+        )}
+        {partialOutageApps.length !== 0 && (
+          <AppRow status={Status.Partial} apps={partialOutageApps} />
+        )}
+        {totalOutageApps.length !== 0 && (
+          <AppRow status={Status.Total} apps={totalOutageApps} />
+        )}{" "}
+      </div>
     </div>
   );
 }
@@ -62,16 +76,24 @@ function AppRow(appRowProps: AppRowProps) {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-row items-center gap-2">
-        <CheckSVG />
-        <h6>
-          {appRowProps.status === Status.Operational
-            ? "Operational"
-            : appRowProps.status === Status.Partial
-            ? "Partial Outage"
-            : appRowProps.status === Status.Total
-            ? "Total Outage"
-            : ""}
-        </h6>
+        {appRowProps.status === Status.Operational && (
+          <>
+            <OperationalIcon />
+            <h6>Operational</h6>
+          </>
+        )}
+        {appRowProps.status === Status.Partial && (
+          <>
+            <WarningIcon />
+            <h6>Partial Outage</h6>
+          </>
+        )}
+        {appRowProps.status === Status.Total && (
+          <>
+            <OutageIcon />
+            <h6>Total Outage</h6>
+          </>
+        )}
       </div>
       <div className="flex flex-row flex-wrap gap-2">
         {appRowProps.apps.map((app) => {
@@ -79,9 +101,10 @@ function AppRow(appRowProps: AppRowProps) {
             <Image
               key={app.id}
               src={DEFAULT_APP_IMG}
-              width={64}
-              height={64}
               alt={app.name}
+              width={128}
+              height={128}
+              className="w-16 h-16 sm-desktop:w-10 sm-desktop:h-10"
             />
           );
         })}
