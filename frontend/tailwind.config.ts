@@ -14,6 +14,13 @@ const config: Config = {
         "pro-text-md": ["pro-text-md", "serif"],
         "pro-text-rg": ["pro-text-rg", "serif"],
       },
+      height: {
+        "15": "60px",
+        "13": "52px",
+      },
+      width: {
+        "15": "60px",
+      },
       colors: {
         success: "#3AC078",
         warning: "#EAA800",

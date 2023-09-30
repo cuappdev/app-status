@@ -1,5 +1,4 @@
 "use client";
-
 import { Subscribe } from "@/components/Subscribe";
 import Overview from "@/components/Overview";
 import { ReportBug } from "@/components/ReportBug";
