@@ -14,12 +14,11 @@ interface ComponentProps {
 export default function TimelineCard({ app }: ComponentProps) {
   let severity: Severity | undefined = undefined;
   const last = app.downIntervals.length - 1;
-  // console.log(`last interval ${app.downIntervals[last]}`);
-  // console.log(`first interval ${app.downIntervals[0]}`);
   if (app.downIntervals.length > 0 && app.downIntervals[last].endTime == null) {
     severity = app.downIntervals[last].severity;
   }
-
+  // console.log(`last interval ${app.downIntervals[last]}`);
+  // console.log(`first interval ${app.downIntervals[0]}`);
   return (
     <div className="bg-white rounded-xl flex flex-1 flex-col sm-tablet:gap-6 gap-4 items-stretch p-8">
       {/* Outage status */}
@@ -51,10 +50,7 @@ export default function TimelineCard({ app }: ComponentProps) {
         </div>
       </div>
 
-      <BlocksAndDateTimeline
-        downIntervals={app.downIntervals}
-        latestSeverity={severity}
-      />
+      <BlocksAndDateTimeline downIntervals={app.downIntervals} />
 
       {severity != undefined && (
         <BugReportBubble

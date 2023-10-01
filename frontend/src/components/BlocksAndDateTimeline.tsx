@@ -3,18 +3,10 @@ import { DownInterval, Severity } from "@/models/DownInterval";
 
 export default function BlocksAndDateTimeline({
   downIntervals,
-  latestSeverity,
 }: {
   downIntervals: DownInterval[];
-  latestSeverity: Severity | undefined;
 }) {
   const timeline: (Severity | undefined)[] = Array(72).fill(undefined);
-  timeline[0] = latestSeverity;
-
-  const getHoursAgo = (i: number) => {
-    const hoursAgo = new Date().valueOf() - i * 3.6 * Math.pow(10, 6);
-    return hoursAgo;
-  };
 
   // for (let i = 1; i < 72; i++) {
   //   for (let { startTime, endTime, severity } of downIntervals) {
@@ -40,16 +32,9 @@ export default function BlocksAndDateTimeline({
   //   }
   // }
 
-  if (
-    downIntervals.length > 0 &&
-    downIntervals[downIntervals.length - 1].endTime == null
-  ) {
-    downIntervals.pop();
-  }
-
   const mapMillisToIndex = (m: number): number => {
     const now = new Date().valueOf();
-    return Math.floor((now - m) / (3.6 * Math.pow(10, 6)));
+    return Math.floor(Math.max(now - m, 0) / (3.6 * Math.pow(10, 6)));
   };
 
   for (const { severity, startTime, endTime } of downIntervals) {
