@@ -18,6 +18,10 @@
   font-family: "pro-text-rg";
   src: url("../../public/SF-Pro-Text-Regular.otf");
 }
+@font-face {
+  font-family: "compact-disp-rg";
+  src: url("../../public/SF-Compact-Display-Regular.otf");
+}
 
 @layer base {
   h1 {
