@@ -39,9 +39,9 @@ export default function PageHeader() {
         </a>
         <a
           className="font-compact-disp-rg text-[1rem] py-1 px-4 text-ruby bg-[#FAECEB] rounded-xl font-bold"
-          href="https://www.cornellappdev.com/status"
+          href="https://status.cornellappdev.com"
         >
-          STATUS
+          APP STATUS
         </a>
       </div>
     </div>

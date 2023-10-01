@@ -17,6 +17,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>{children}</body>
+      <title>Status | Cornell AppDev</title>
+      <link rel="icon" type="image/x-icon" href="./favicon.ico" />
     </html>
   );
 }

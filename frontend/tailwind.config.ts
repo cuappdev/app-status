@@ -9,11 +9,11 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        "pro-disp-sb": ["pro-disp-sb", "serif"],
-        "pro-disp-md": ["pro-disp-md", "serif"],
-        "pro-text-md": ["pro-text-md", "serif"],
-        "pro-text-rg": ["pro-text-rg", "serif"],
-        "compact-disp-rg": ["compact-disp-rg", "serif"],
+        "pro-disp-sb": ["pro-disp-sb", "verdana"],
+        "pro-disp-md": ["pro-disp-md", "verdana"],
+        "pro-text-md": ["pro-text-md", "verdana"],
+        "pro-text-rg": ["pro-text-rg", "verdana"],
+        "compact-disp-rg": ["compact-disp-rg", "verdana"],
       },
       height: {
         "15": "60px",
