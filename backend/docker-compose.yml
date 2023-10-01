@@ -2,9 +2,9 @@ version: "3.6"
 
 services:
   web:
-    build: 
-      context: .
-      dockerfile: Dockerfile
+    image: cornellappdev/status-platform:${STATUS_IMG_TAG}
     env_file: .env
+    volumes:
+      - "/etc/letsencrypt:/etc/letsencrypt"
     ports:
-      - "3000:3000"
+      - "8000:8000"
