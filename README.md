@@ -1,9 +1,12 @@
-# MERN Starter
+# AppDev Status Platform
+This repository contains the code for AppDev's very own status platform, designed to showcase which of our apps are currently down, in maintenance, and up and running. The platform also allows users to subscribe to receive updates whenever an app's status changes.
 
-This repository provides an opinionated, pre-configured project setup for a MERN webapp's frontend and backend components.
+# Developers
+This repository was created and is maintained by:
+- Archit Mehta (@Archit404Error)
+- Vin Bui (@vinnie4k)
+- Zach Seidner (@zachseidner1)
 
-The frontend and backend both make use of TypeScript, and the repository comes pre-packaged with testing, continuous integration workflows, auto-PR requesting (CODEOWNERS), and a PR template
-
-The frontend and backend repos each have a README to help you get started with the project.
-
-To get started, either fork this repo or clone using `git clone https://github.com/Archit404Error/MERN-webapp`
+# Designers
+This website was designed by:
+- Liam Du
