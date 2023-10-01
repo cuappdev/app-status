@@ -71,7 +71,7 @@
     @apply shadow-[0_0_10px_0_rgba(36,41,46,0.05)];
   }
   .selected-icon-highlight {
-    @apply border-solid border-highlight border-2 shadow-[0_0_20px_20px_rgba(74,144,226,0.25)];
+    @apply border-solid border-highlight border-2;
   }
   .border-warning-style {
     @apply border-solid border-[1px] border-warning;

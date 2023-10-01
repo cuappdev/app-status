@@ -82,6 +82,7 @@ export const Subscribe = ({ appNames }: SubscribeProps) => {
             placeholder="Select an app..."
             className="input input-bordered text-gray-06 placeholder:text-gray-03 p1 w-full caret-transparent cursor-pointer"
             value={appName}
+            readOnly
           />
           <ul
             tabIndex={0}

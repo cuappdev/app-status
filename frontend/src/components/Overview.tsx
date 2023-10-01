@@ -1,6 +1,7 @@
 import { DEFAULT_APP_IMG } from "@/constants";
 import { App } from "@/models/App";
 import { Severity } from "@/models/DownInterval";
+import { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 import OperationalIcon from "./svg/OperationalIcon";
 import OutageIcon from "./svg/OutageIcon";
@@ -8,6 +9,8 @@ import WarningIcon from "./svg/WarningIcon";
 
 interface AppProps {
   apps: App[];
+  selectedApp: App | undefined;
+  setSelectedApp: Dispatch<SetStateAction<App | undefined>>;
 }
 
 enum Status {
@@ -19,10 +22,12 @@ enum Status {
 interface AppRowProps {
   status: Status;
   apps: App[];
+  selectedApp: App | undefined;
+  setSelectedApp: Dispatch<SetStateAction<App | undefined>>;
 }
 
-export default function Overview({ apps }: AppProps) {
-  const operationalApps = apps.filter((app) => {
+export default function Overview(appProps: AppProps) {
+  const operationalApps = appProps.apps.filter((app) => {
     if (app.downIntervals.length === 0) {
       return true;
     }
@@ -33,7 +38,7 @@ export default function Overview({ apps }: AppProps) {
     return false;
   });
 
-  const partialOutageApps = apps.filter((app) => {
+  const partialOutageApps = appProps.apps.filter((app) => {
     const lastInterval = app.downIntervals[app.downIntervals.length - 1];
     if (lastInterval) {
       return lastInterval.severity === Severity.Medium && !lastInterval.endTime;
@@ -41,7 +46,7 @@ export default function Overview({ apps }: AppProps) {
     return false;
   });
 
-  const totalOutageApps = apps.filter((app) => {
+  const totalOutageApps = appProps.apps.filter((app) => {
     const lastInterval = app.downIntervals[app.downIntervals.length - 1];
     if (lastInterval) {
       return lastInterval.severity === Severity.High && !lastInterval.endTime;
@@ -65,13 +70,28 @@ export default function Overview({ apps }: AppProps) {
 
       <div className="flex flex-col gap-6">
         {operationalApps.length !== 0 && (
-          <AppRow status={Status.Operational} apps={operationalApps} />
+          <AppRow
+            status={Status.Operational}
+            apps={operationalApps}
+            selectedApp={appProps.selectedApp}
+            setSelectedApp={appProps.setSelectedApp}
+          />
         )}
         {partialOutageApps.length !== 0 && (
-          <AppRow status={Status.Partial} apps={partialOutageApps} />
+          <AppRow
+            status={Status.Partial}
+            apps={partialOutageApps}
+            selectedApp={appProps.selectedApp}
+            setSelectedApp={appProps.setSelectedApp}
+          />
         )}
         {totalOutageApps.length !== 0 && (
-          <AppRow status={Status.Total} apps={totalOutageApps} />
+          <AppRow
+            status={Status.Total}
+            apps={totalOutageApps}
+            selectedApp={appProps.selectedApp}
+            setSelectedApp={appProps.setSelectedApp}
+          />
         )}{" "}
       </div>
     </div>
@@ -110,7 +130,12 @@ function AppRow(appRowProps: AppRowProps) {
               alt={app.name}
               width={1024}
               height={1024}
-              className="w-16 h-16 rounded-xl sm-desktop:w-10 sm-desktop:h-10 sm-desktop:rounded-lg app-icon-shadow"
+              onClick={() => appRowProps.setSelectedApp(app)}
+              className={`w-16 h-16 rounded-xl sm-desktop:w-10 sm-desktop:h-10 sm-desktop:rounded-lg app-icon-shadow ${
+                appRowProps.selectedApp === app
+                  ? "max-sm-desktop:selected-icon-highlight"
+                  : ""
+              }`}
             />
           );
         })}
