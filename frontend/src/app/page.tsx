@@ -1,14 +1,14 @@
 "use client";
 import Overview from "@/components/Overview";
 import { PageFooter } from "@/components/PageFooter";
+import PageHeader from "@/components/PageHeader";
 import { ReportBug } from "@/components/ReportBug";
 import { Subscribe } from "@/components/Subscribe";
 import { Timeline } from "@/components/Timeline";
+import TimelineCard from "@/components/TimelineCard";
 import { BACKEND_URL } from "@/constants";
 import { App } from "@/models/App";
 import { useEffect, useState } from "react";
-import PageHeader from "@/components/PageHeader";
-import TimelineCard from "@/components/TimelineCard";
 
 interface AppsResponse {
   success: boolean;
@@ -53,8 +53,8 @@ export default function Home() {
           {selectedApp !== undefined ? (
             <TimelineCard key={selectedApp?.id} app={selectedApp} />
           ) : null}
-          <ReportBug appNames={appNames} />
           <Subscribe appNames={appNames} />
+          <ReportBug appNames={appNames} />
         </div>
         <div className="flex-row hidden sm-desktop:flex gap-4 w-full">
           <div className="flex flex-col gap-4 sm-desktop:w-[540px]">
@@ -63,8 +63,8 @@ export default function Home() {
               selectedApp={selectedApp}
               setSelectedApp={setSelectedApp}
             />
-            <ReportBug appNames={appNames} />
             <Subscribe appNames={appNames} />
+            <ReportBug appNames={appNames} />
           </div>
           <Timeline apps={apps} />
         </div>

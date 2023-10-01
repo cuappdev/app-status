@@ -1,8 +1,8 @@
 import { DEFAULT_APP_IMG } from "@/constants";
 import { App } from "@/models/App";
 import { Severity } from "@/models/DownInterval";
-import { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
+import { Dispatch, SetStateAction } from "react";
 import OperationalIcon from "./svg/OperationalIcon";
 import OutageIcon from "./svg/OutageIcon";
 import WarningIcon from "./svg/WarningIcon";
@@ -63,7 +63,7 @@ export default function Overview(appProps: AppProps) {
         </div>
         <p className="p1 text-gray-04">
           {partialOutageApps.length > 0 || totalOutageApps.length > 0
-            ? "Some of our apps have known issues."
+            ? "Some of our apps have known issues. Enter your email below to receive a notification when we fix them!"
             : "All of our apps are operational. Select each app to see specific status."}
         </p>
       </div>
