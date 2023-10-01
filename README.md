@@ -3,9 +3,9 @@ This repository contains the code for AppDev's very own status platform, designe
 
 # Developers
 This repository was created and is maintained by:
-- Archit Mehta (@Archit404Error)
-- Vin Bui (@vinnie4k)
-- Zach Seidner (@zachseidner1)
+- Archit Mehta ([@Archit404Error](https://github.com/archit404error))
+- Vin Bui ([@vinnie4k](https://github.com/vinni4k))
+- Zach Seidner ([@zachseidner1](https://github.com/zachseidner1))
 
 # Designers
 This website was designed by:
