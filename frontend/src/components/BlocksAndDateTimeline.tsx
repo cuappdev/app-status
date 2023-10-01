@@ -1,4 +1,4 @@
-"useclient";
+"use client";
 import { DownInterval, Severity } from "@/models/DownInterval";
 
 export default function BlocksAndDateTimeline({
@@ -10,23 +10,58 @@ export default function BlocksAndDateTimeline({
 }) {
   const timeline: (Severity | undefined)[] = Array(72).fill(undefined);
   timeline[0] = latestSeverity;
-  const future = new Date();
-  future.setHours(future.getHours() + 20);
 
   const getHoursAgo = (i: number) => {
-    const hoursAgo = new Date();
-    hoursAgo.setHours(hoursAgo.getHours() - i);
+    const hoursAgo = new Date().valueOf() - i * 3.6 * Math.pow(10, 6);
     return hoursAgo;
   };
 
-  for (let i = 1; i < 72; i++) {
-    for (let { startTime, endTime, severity } of downIntervals) {
-      const trueEnd = endTime ? new Date(endTime) : future;
-      const iHoursAgo = getHoursAgo(i);
-      if (new Date(startTime) <= iHoursAgo && iHoursAgo <= trueEnd) {
-        timeline[i] = severity;
-        break;
-      }
+  // for (let i = 1; i < 72; i++) {
+  //   for (let { startTime, endTime, severity } of downIntervals) {
+  //     const trueEnd: Date = endTime ? new Date(endTime) : future;
+  //     const intervalStart = getHoursAgo(i + 1);
+  //     const intervalEnd = getHoursAgo(i);
+  //     if (i == 2) {
+  //       console.log(
+  //         `DOWN PERIOD: startTime = ${startTime.toString()}, endTime = ${endTime?.toString()}, serverity = ${formatSeverity(
+  //           severity
+  //         )}\n
+  //         My interval: intervalStart = ${intervalStart.toString()}, intervalEnd = ${intervalEnd.toString()} `
+  //       );
+  //       // console.log(`index is ${i} and this corresponds to ${iHoursAgo}`);
+  //     }
+  //     if (
+  //       (trueEnd >= intervalStart && new Date(startTime) <= intervalStart) ||
+  //       (intervalEnd >= new Date(startTime) && intervalEnd <= trueEnd)
+  //     ) {
+  //       timeline[i] = severity;
+  //       break;
+  //     }
+  //   }
+  // }
+
+  if (
+    downIntervals.length > 0 &&
+    downIntervals[downIntervals.length - 1].endTime == null
+  ) {
+    downIntervals.pop();
+  }
+
+  const mapMillisToIndex = (m: number): number => {
+    const now = new Date().valueOf();
+    return Math.floor((now - m) / (3.6 * Math.pow(10, 6)));
+  };
+
+  for (const { severity, startTime, endTime } of downIntervals) {
+    const startMillis = new Date(startTime).valueOf();
+    const endMillis = endTime
+      ? new Date(endTime).valueOf()
+      : new Date().valueOf() + 3.6 * Math.pow(10, 6);
+    const first = mapMillisToIndex(startMillis);
+    const last = mapMillisToIndex(endMillis);
+    console.log(`first: ${first}, last: ${last}`);
+    for (let index = last; index <= first; index++) {
+      timeline[index] = severity;
     }
   }
   timeline.reverse();
