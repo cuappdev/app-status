@@ -13,6 +13,7 @@ const config: Config = {
         "pro-disp-md": ["pro-disp-md", "serif"],
         "pro-text-md": ["pro-text-md", "serif"],
         "pro-text-rg": ["pro-text-rg", "serif"],
+        "compact-disp-rg": ["compact-disp-rg", "serif"],
       },
       height: {
         "15": "60px",
