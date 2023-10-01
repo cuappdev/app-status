@@ -14,10 +14,9 @@ interface ComponentProps {
 export default function TimelineCard({ app }: ComponentProps) {
   let severity: Severity | undefined = undefined;
   const last = app.downIntervals.length - 1;
-  if (
-    app.downIntervals[last] != null &&
-    app.downIntervals[last].endTime == null
-  ) {
+  // console.log(`last interval ${app.downIntervals[last]}`);
+  // console.log(`first interval ${app.downIntervals[0]}`);
+  if (app.downIntervals.length > 0 && app.downIntervals[last].endTime == null) {
     severity = app.downIntervals[last].severity;
   }
 
