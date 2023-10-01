@@ -4,7 +4,5 @@ services:
   web:
     image: cornellappdev/status-platform:${STATUS_IMG_TAG}
     env_file: .env
-    volumes:
-      - "/etc/letsencrypt:/etc/letsencrypt"
     ports:
       - "8000:8000"
