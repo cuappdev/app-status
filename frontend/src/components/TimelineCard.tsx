@@ -17,8 +17,6 @@ export default function TimelineCard({ app }: ComponentProps) {
   if (app.downIntervals.length > 0 && app.downIntervals[last].endTime == null) {
     severity = app.downIntervals[last].severity;
   }
-  // console.log(`last interval ${app.downIntervals[last]}`);
-  // console.log(`first interval ${app.downIntervals[0]}`);
   return (
     <div className="bg-white rounded-xl flex flex-1 flex-col sm-tablet:gap-6 gap-4 items-stretch p-8">
       {/* Outage status */}
@@ -51,13 +49,10 @@ export default function TimelineCard({ app }: ComponentProps) {
       </div>
 
       <BlocksAndDateTimeline downIntervals={app.downIntervals} />
-
-      {severity != undefined && (
+      {app.downIntervals.length > 0 && (
         <BugReportBubble
           lastUpdated={
-            severity == null
-              ? app.downIntervals[last].endTime!!
-              : app.downIntervals[last].startTime
+            app.downIntervals[last].endTime ?? app.downIntervals[last].startTime
           }
           description={app.downIntervals[last].description}
           resolved={severity == null}
