@@ -1,4 +1,5 @@
 "use client";
+import { MAX_PREVIEW_HOURS } from "@/constants";
 import { DownInterval, Severity } from "@/models/DownInterval";
 
 export default function BlocksAndDateTimeline({
@@ -6,31 +7,8 @@ export default function BlocksAndDateTimeline({
 }: {
   downIntervals: DownInterval[];
 }) {
-  const timeline: (Severity | undefined)[] = Array(72).fill(undefined);
-
-  // for (let i = 1; i < 72; i++) {
-  //   for (let { startTime, endTime, severity } of downIntervals) {
-  //     const trueEnd: Date = endTime ? new Date(endTime) : future;
-  //     const intervalStart = getHoursAgo(i + 1);
-  //     const intervalEnd = getHoursAgo(i);
-  //     if (i == 2) {
-  //       console.log(
-  //         `DOWN PERIOD: startTime = ${startTime.toString()}, endTime = ${endTime?.toString()}, serverity = ${formatSeverity(
-  //           severity
-  //         )}\n
-  //         My interval: intervalStart = ${intervalStart.toString()}, intervalEnd = ${intervalEnd.toString()} `
-  //       );
-  //       // console.log(`index is ${i} and this corresponds to ${iHoursAgo}`);
-  //     }
-  //     if (
-  //       (trueEnd >= intervalStart && new Date(startTime) <= intervalStart) ||
-  //       (intervalEnd >= new Date(startTime) && intervalEnd <= trueEnd)
-  //     ) {
-  //       timeline[i] = severity;
-  //       break;
-  //     }
-  //   }
-  // }
+  const timeline: (Severity | undefined)[] =
+    Array(MAX_PREVIEW_HOURS).fill(undefined);
 
   const mapMillisToIndex = (m: number): number => {
     const now = new Date().valueOf();
@@ -42,9 +20,9 @@ export default function BlocksAndDateTimeline({
     const endMillis = endTime
       ? new Date(endTime).valueOf()
       : new Date().valueOf() + 3.6 * Math.pow(10, 6);
-    const first = mapMillisToIndex(startMillis);
+    const first = Math.min(mapMillisToIndex(startMillis), MAX_PREVIEW_HOURS);
     const last = mapMillisToIndex(endMillis);
-    console.log(`first: ${first}, last: ${last}`);
+
     for (let index = last; index <= first; index++) {
       timeline[index] = severity;
     }
@@ -105,7 +83,7 @@ export default function BlocksAndDateTimeline({
       <div className="hidden sm-tablet:block md-desktop:hidden">
         <p className="text-gray-06 p1">Timeline</p>
         <div className="h-2" />
-        <div className="grid grid-flow-col  gap-1 justify-stretch h-13 items-end">
+        <div className="grid grid-flow-col gap-1 justify-stretch h-13 items-end">
           {timeline.slice(timeline.length - 48).map((elt, i) => (
             <TimelineBlock severity={elt} key={i} />
           ))}
