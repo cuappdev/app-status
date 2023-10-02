@@ -121,7 +121,7 @@ export default function BlocksAndDateTimeline({
         <p className="text-gray-06 p1">Timeline</p>
         <div className="h-2" />
         <div className="grid grid-flow-col gap-1 justify-stretch h-13 items-end">
-          {timeline.map((elt, i) => (
+          {timeline.slice(timeline.length - 72).map((elt, i) => (
             <TimelineBlock severity={elt} key={i} />
           ))}
         </div>
