@@ -34,22 +34,32 @@ appRouter.post("/", async (req, res) => {
 });
 
 appRouter.post("/app-down/:id", async (req, res, next) => {
-  await AppController.appStatusChange(
-    req.params.id,
-    req.body.severity,
-    req.body.description,
-    req.body.startTime,
-    req.body.endTime
-  ).catch((err) => next(err));
-  res.status(201).send(successJson("status updated"));
+  try {
+    await AppController.appStatusChange(
+      req.params.id,
+      req.body.severity,
+      req.body.description,
+      req.body.startTime,
+      req.body.endTime
+    );
+    res.status(201).send(successJson("status updated"));
+  } catch (err) {
+    next(err);
+  }
 });
 
 appRouter.post("/app-fixed/:id", async (req, res, next) => {
-  await AppController.appFixed(req.params.id, new Date(req.body.date)).catch(
-    (err) => next(err)
-  );
-  await AppController.sendStatusEmails(req.params.id, "Down", "Up and running");
-  res.status(200).send(successJson("App fixed"));
+  try {
+    await AppController.appFixed(req.params.id, new Date(req.body.date));
+    await AppController.sendStatusEmails(
+      req.params.id,
+      "Down",
+      "Up and running"
+    );
+    res.status(200).send(successJson("App fixed"));
+  } catch (err) {
+    next(err);
+  }
 });
 
 appRouter.post("/update-image/:id", async (req, res) => {
