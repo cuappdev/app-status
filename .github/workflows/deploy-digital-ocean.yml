@@ -43,10 +43,9 @@ jobs:
           script: |
             export INTEGRATION_IMG_TAG=$(docker images cornellappdev/integration --format "{{.Tag}}")
             export STATUS_IMG_TAG="${{ steps.vars.outputs.sha_short }}"
-            docker stop status-platform-web-1
-            docker rm status-platform-web-1
-            docker stop root-integration-1
-            docker rm root-integration-1
+            echo $INTEGRATION_IMG_TAG > tags.txt
+            echo $STATUS_IMG_TAG >> tags.txt
+            docker compose down
             yes | sudo docker container prune
             yes | sudo docker system prune
             docker compose -p status-platform up -d
