@@ -26,14 +26,14 @@ jobs:
         id: vars
         run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
 
-      # Build the Docker image
       - name: Build
         run: |-
           docker build --tag "cornellappdev/status-platform:${{ steps.vars.outputs.sha_short }}" ./backend/
-      # Push the Docker image to Google Container Registry
+
       - name: Publish
         run: |-
           docker push "cornellappdev/status-platform:${{ steps.vars.outputs.sha_short }}"
+
       - name: SSH & Deploy
         uses: appleboy/ssh-action@master
         with:
@@ -41,11 +41,9 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.PRIVATE_KEY }}
           script: |
-            export INTEGRATION_IMG_TAG=$(docker images cornellappdev/integration | awk '{print $2}' | awk 'NR==2')
             export STATUS_IMG_TAG="${{ steps.vars.outputs.sha_short }}"
-            echo $INTEGRATION_IMG_TAG > tags.txt
             echo $STATUS_IMG_TAG >> tags.txt
-            docker compose -p status-platform down
-            yes | sudo docker container prune
-            yes | sudo docker system prune
-            docker compose -p status-platform up -d
+            docker stack rm the-stack
+            sleep 20s
+            docker stack deploy -c docker-compose.yml the-stack --with-registry-auth
+            yes | docker system prune -a
