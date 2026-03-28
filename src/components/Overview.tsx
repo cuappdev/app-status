@@ -2,15 +2,12 @@ import { DEFAULT_APP_IMG } from '@/constants';
 import { App } from '@/types/App';
 import { Severity } from '@/types/DownInterval';
 import Image from 'next/image';
-import { Dispatch, SetStateAction } from 'react';
 import OperationalIcon from './svg/OperationalIcon';
 import OutageIcon from './svg/OutageIcon';
 import WarningIcon from './svg/WarningIcon';
 
 interface AppProps {
   apps: App[];
-  selectedApp: App | undefined;
-  setSelectedApp: Dispatch<SetStateAction<App | undefined>>;
 }
 
 enum Status {
@@ -22,15 +19,9 @@ enum Status {
 interface AppRowProps {
   status: Status;
   apps: App[];
-  selectedApp: App | undefined;
-  setSelectedApp: Dispatch<SetStateAction<App | undefined>>;
 }
 
-export default function Overview({
-  apps,
-  selectedApp,
-  setSelectedApp,
-}: AppProps) {
+export default function Overview({ apps }: AppProps) {
   const operationalApps: App[] = [];
   const partialOutageApps: App[] = [];
   const totalOutageApps: App[] = [];
@@ -62,7 +53,7 @@ export default function Overview({
         <p className="p1 text-gray-04">
           {partialOutageApps.length > 0 || totalOutageApps.length > 0
             ? 'Some of our apps have known issues. Enter your email below to receive a notification when we fix them!'
-            : 'All of our apps are operational. Select each app to see specific status.'}
+            : 'All of our apps are operational. Enter your email below to receive a notification if any issues arise!'}
         </p>
       </div>
 
@@ -71,24 +62,18 @@ export default function Overview({
           <AppRow
             status={Status.Operational}
             apps={operationalApps}
-            selectedApp={selectedApp}
-            setSelectedApp={setSelectedApp}
           />
         )}
         {partialOutageApps.length !== 0 && (
           <AppRow
             status={Status.Partial}
             apps={partialOutageApps}
-            selectedApp={selectedApp}
-            setSelectedApp={setSelectedApp}
           />
         )}
         {totalOutageApps.length !== 0 && (
           <AppRow
             status={Status.Total}
             apps={totalOutageApps}
-            selectedApp={selectedApp}
-            setSelectedApp={setSelectedApp}
           />
         )}
       </div>
@@ -96,7 +81,7 @@ export default function Overview({
   );
 }
 
-function AppRow({ status, apps, selectedApp, setSelectedApp }: AppRowProps) {
+function AppRow({ status, apps }: AppRowProps) {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-row items-center gap-2">
@@ -128,12 +113,7 @@ function AppRow({ status, apps, selectedApp, setSelectedApp }: AppRowProps) {
               alt={app.name}
               width={1024}
               height={1024}
-              onClick={() => setSelectedApp(app)}
-              className={`w-16 h-16 rounded-xl sm-desktop:w-10 sm-desktop:h-10 sm-desktop:rounded-lg app-icon-shadow cursor-pointer hover:opacity-80 transition-opacity ${
-                selectedApp?.id === app.id
-                  ? 'max-sm-desktop:selected-icon-highlight'
-                  : ''
-              }`}
+              className="w-16 h-16 rounded-xl sm-desktop:w-10 sm-desktop:h-10 sm-desktop:rounded-lg app-icon-shadow"
             />
           );
         })}

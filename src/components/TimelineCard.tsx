@@ -1,10 +1,9 @@
 'use client';
 import { App } from '@/types/App';
 import { Severity } from '@/types/DownInterval';
-import { formatSeverity, formatUpdateDate } from '@/utilities';
+import { formatSeverity } from '@/utilities';
 import AppIcon from './AppIcon';
 import BlocksAndDateTimeline from './BlocksAndDateTimeline';
-import BugReportBubble from './BugReportBubble';
 import StatusIcon from './StatusIcon';
 
 interface ComponentProps {
@@ -18,7 +17,7 @@ export default function TimelineCard({ app }: ComponentProps) {
     severity = app.downIntervals[last].severity;
   }
   return (
-    <div className="bg-white rounded-xl flex flex-1 flex-col sm-tablet:gap-6 gap-4 items-stretch p-8">
+    <div className="bg-white rounded-xl flex flex-col sm-tablet:gap-6 gap-4 items-stretch p-8">
       {/* Outage status */}
       <div
         className="sm-tablet:hidden flex flex-row justify-center border-other rounded-xl items-center bg-gray-bug px-4 py-2"
@@ -40,9 +39,7 @@ export default function TimelineCard({ app }: ComponentProps) {
           <div className="hidden sm-tablet:flex">
             <h4> {app.name} </h4>
           </div>
-          <p className="p3 sm-tablet:p1 text-gray-06 w-full">
-            {`Updated: ${formatUpdateDate(app.lastUpdated)}`}
-          </p>
+
         </div>
         <div className="flex flex-1" />
         <div
@@ -57,16 +54,6 @@ export default function TimelineCard({ app }: ComponentProps) {
       </div>
 
       <BlocksAndDateTimeline downIntervals={app.downIntervals} />
-      {app.downIntervals.length > 0 && (
-        <BugReportBubble
-          lastUpdated={
-            app.downIntervals[last].endTime ?? app.downIntervals[last].startTime
-          }
-          description={app.downIntervals[last].description}
-          resolved={severity === undefined}
-          currentlyDown={!app.downIntervals[last].endTime}
-        />
-      )}
     </div>
   );
 }

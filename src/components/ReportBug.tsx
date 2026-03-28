@@ -98,7 +98,7 @@ export const ReportBug = ({ appNames }: ReportBugProps) => {
           <ul
             role="listbox"
             tabIndex={0}
-            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+            className="dropdown-content z-1 menu p-2 shadow bg-base-100 rounded-box w-52"
           >
             {appNames.map((appName) => (
               <li key={appName} role="option" aria-selected={false}>
