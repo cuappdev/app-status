@@ -1,6 +1,6 @@
 'use client';
-import { App } from '@/models/App';
-import { Severity } from '@/models/DownInterval';
+import { App } from '@/types/App';
+import { Severity } from '@/types/DownInterval';
 import { formatSeverity, formatUpdateDate } from '@/utilities';
 import AppIcon from './AppIcon';
 import BlocksAndDateTimeline from './BlocksAndDateTimeline';
@@ -12,17 +12,19 @@ interface ComponentProps {
 }
 
 export default function TimelineCard({ app }: ComponentProps) {
-  console.log(app.name);
-  console.log(app.downIntervals.length);
   let severity: Severity | undefined = undefined;
   const last = app.downIntervals.length - 1;
-  if (app.downIntervals.length > 0 && app.downIntervals[last].endTime == null) {
+  if (app.downIntervals.length > 0 && !app.downIntervals[last].endTime) {
     severity = app.downIntervals[last].severity;
   }
   return (
     <div className="bg-white rounded-xl flex flex-1 flex-col sm-tablet:gap-6 gap-4 items-stretch p-8">
       {/* Outage status */}
-      <div className="sm-tablet:hidden flex flex-row justify-center border-other rounded-xl items-center bg-gray-bug px-4 py-2">
+      <div
+        className="sm-tablet:hidden flex flex-row justify-center border-other rounded-xl items-center bg-gray-bug px-4 py-2"
+        role="status"
+        aria-live="polite"
+      >
         <StatusIcon severity={severity} />
         <div className="w-2" />
         <p className="p1">{formatSeverity(severity)}</p>
@@ -43,7 +45,11 @@ export default function TimelineCard({ app }: ComponentProps) {
           </p>
         </div>
         <div className="flex flex-1" />
-        <div className="border-other flex-row rounded-[30px] hidden sm-tablet:flex items-center py-2 px-4">
+        <div
+          className="border-other flex-row rounded-[30px] hidden sm-tablet:flex items-center py-2 px-4"
+          role="status"
+          aria-live="polite"
+        >
           <StatusIcon severity={severity} />
           <div className="w-2" />
           <p className="p1">{formatSeverity(severity)}</p>
@@ -57,8 +63,8 @@ export default function TimelineCard({ app }: ComponentProps) {
             app.downIntervals[last].endTime ?? app.downIntervals[last].startTime
           }
           description={app.downIntervals[last].description}
-          resolved={severity == null}
-          currentlyDown={app.downIntervals[last].endTime == null}
+          resolved={severity === undefined}
+          currentlyDown={!app.downIntervals[last].endTime}
         />
       )}
     </div>

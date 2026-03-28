@@ -1,4 +1,4 @@
-import { Severity } from '@/models/DownInterval';
+import { Severity } from '@/types/DownInterval';
 import OutageIcon from './svg/OutageIcon';
 import WarningIcon from './svg/WarningIcon';
 import OperationalIcon from './svg/OperationalIcon';

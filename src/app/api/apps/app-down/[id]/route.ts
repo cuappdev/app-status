@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import AppController from '../../../../../server/apps/controllers';
-import { successJson } from '../../../../../server/utils/jsonResponses';
-import { dbConnect } from '../../../../../server/database';
+import AppController from '@/app/api/apps/controllers';
+import { successJson } from '@/app/api/utils/jsonResponses';
+import { dbConnect } from '@/app/api/database';
 
 export async function POST(
   req: Request,
@@ -18,7 +18,10 @@ export async function POST(
       body.endTime,
     );
     return NextResponse.json(successJson('status updated'), { status: 201 });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  } catch (err: unknown) {
+    return NextResponse.json(
+      { error: err instanceof Error ? err.message : 'Unknown error' },
+      { status: 500 },
+    );
   }
 }

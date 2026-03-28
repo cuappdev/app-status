@@ -41,7 +41,9 @@ const sendReportEmail = (
   return mailTransporter.sendMail(emailDetails);
 };
 
-export default {
+const bugReportControllers = {
   getBugReports,
   createBugReport,
 };
+
+export default bugReportControllers;

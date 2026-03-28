@@ -1,6 +1,6 @@
 'use client';
 import { MAX_PREVIEW_HOURS } from '@/constants';
-import { DownInterval, Severity } from '@/models/DownInterval';
+import { DownInterval, Severity } from '@/types/DownInterval';
 
 export default function BlocksAndDateTimeline({
   downIntervals,

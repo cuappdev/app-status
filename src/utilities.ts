@@ -1,4 +1,4 @@
-import { Severity } from './models/DownInterval';
+import { Severity } from './types/DownInterval';
 
 function formatSeverity(s: Severity | undefined): string {
   switch (s) {

@@ -48,7 +48,8 @@ const appStatusChange = async (
 };
 
 const appFixed = async (id: string, fixTime: Date) => {
-  let app = (await getAppById(id))!;
+  let app = await getAppById(id);
+  if (!app) throw new Error('Invalid id supplied');
   app.lastUpdated = new Date();
   app.downIntervals[app.downIntervals.length - 1].endTime = fixTime;
   app.markModified('downIntervals');
@@ -60,7 +61,8 @@ const getAppDownIntervals = async (id: string) => {
 };
 
 const updateImage = async (id: string, imageUrl: string) => {
-  let app = (await getAppById(id))!;
+  let app = await getAppById(id);
+  if (!app) throw new Error('Invalid id supplied');
   app.imageUrl = imageUrl;
   await app.save();
 };
@@ -95,22 +97,27 @@ const sendStatusEmails = async (
     },
   });
 
-  const appName = (await getAppById(appId))?.name!;
+  const app = await getAppById(appId);
+  if (!app) return;
+  const appName = app.name;
+
   const users = await SubscriberController.getSubscribers();
-  for (const user of users) {
-    if (new Set(user.subscribedApps).has(appName)) {
+  const promises = users
+    .filter((user) => user.subscribedApps.includes(appName))
+    .map((user) =>
       sendStatusEmail(
         user.email,
         appName,
         oldStatus,
         newStatus,
         mailTransporter,
-      ).catch((err) => console.error(err));
-    }
-  }
+      ),
+    );
+
+  Promise.allSettled(promises).catch((err) => console.error(err));
 };
 
-export default {
+const appControllers = {
   getApps,
   getAppById,
   createApp,
@@ -120,3 +127,5 @@ export default {
   updateImage,
   sendStatusEmails,
 };
+
+export default appControllers;

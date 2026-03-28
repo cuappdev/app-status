@@ -6,8 +6,7 @@ import { ReportBug } from '@/components/ReportBug';
 import { Subscribe } from '@/components/Subscribe';
 import { Timeline } from '@/components/Timeline';
 import TimelineCard from '@/components/TimelineCard';
-import { BACKEND_URL } from '@/constants';
-import { App } from '@/models/App';
+import { App } from '@/types/App';
 import { useEffect, useState } from 'react';
 
 interface AppsResponse {
@@ -16,21 +15,32 @@ interface AppsResponse {
 }
 
 export default function Home() {
-  const [apps, setApps] = useState<any[]>([]);
+  const [apps, setApps] = useState<App[]>([]);
   const [appNames, setAppNames] = useState<string[]>([]);
   const [selectedApp, setSelectedApp] = useState<App | undefined>();
 
   useEffect(() => {
     (async () => {
-      const response = await fetch(`${BACKEND_URL}/apps/`, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      });
+      try {
+        const response = await fetch(`/api/apps/`, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        });
 
-      const apps = ((await response.json()) as AppsResponse).data;
-      setApps(apps);
-      setAppNames(apps.map((app) => app.name));
-      setSelectedApp(apps[0]);
+        if (!response.ok) {
+          console.error('Failed to fetch apps');
+          return;
+        }
+
+        const data = ((await response.json()) as AppsResponse).data as App[];
+        setApps(data);
+        setAppNames(data.map((app) => app.name));
+        if (data.length > 0) {
+          setSelectedApp(data[0]);
+        }
+      } catch (error) {
+        console.error('Error fetching apps:', error);
+      }
     })();
   }, []);
 

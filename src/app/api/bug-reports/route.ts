@@ -1,15 +1,18 @@
 import { NextResponse } from 'next/server';
-import BugController from '../../../server/bugReports/controllers';
-import { successJson } from '../../../server/utils/jsonResponses';
-import { dbConnect } from '../../../server/database';
+import BugController from '@/app/api/bug-reports/controllers';
+import { successJson } from '@/app/api/utils/jsonResponses';
+import { dbConnect } from '@/app/api/database';
 
 export async function GET() {
   await dbConnect();
   try {
     const bugReports = await BugController.getBugReports();
     return NextResponse.json(successJson(bugReports), { status: 200 });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  } catch (err: unknown) {
+    return NextResponse.json(
+      { error: err instanceof Error ? err.message : 'Unknown error' },
+      { status: 500 },
+    );
   }
 }
 
@@ -24,7 +27,10 @@ export async function POST(req: Request) {
       new Date(body.createdTime),
     );
     return NextResponse.json(successJson('Added bug report'), { status: 201 });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  } catch (err: unknown) {
+    return NextResponse.json(
+      { error: err instanceof Error ? err.message : 'Unknown error' },
+      { status: 500 },
+    );
   }
 }

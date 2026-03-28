@@ -1,4 +1,3 @@
-import { BACKEND_URL } from '@/constants';
 import { useState } from 'react';
 import IssueIcon from './svg/IssueIcon';
 import WarningIcon from './svg/WarningIcon';
@@ -17,31 +16,38 @@ export const ReportBug = ({ appNames }: ReportBugProps) => {
 
   const validateEmail = () => {
     if (!email) {
-      return email;
+      return null;
     }
-    return email.match(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/);
+    return email.match(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i);
   };
 
   const submitBugReport = async () => {
-    const response = await fetch(`${BACKEND_URL}/bug-reports/`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email: email,
-        appName: appName,
-        desc: desc,
-        createdTime: new Date().toString(),
-      }),
-    });
+    try {
+      const response = await fetch(`/api/bug-reports/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email,
+          appName: appName,
+          desc: desc,
+          createdTime: new Date().toString(),
+        }),
+      });
 
-    const responseJson = await response.json();
-    if (responseJson.success) {
-      setEmail('');
-      setDesc('');
-      setAppName('');
-      setSucceeded(true);
-    } else {
+      const responseJson = await response.json();
+      if (responseJson.success) {
+        setEmail('');
+        setDesc('');
+        setAppName('');
+        setSucceeded(true);
+        setError(false);
+      } else {
+        setSucceeded(false);
+        setError(true);
+      }
+    } catch {
       setSucceeded(false);
+      setError(true);
     }
   };
 
@@ -63,7 +69,7 @@ export const ReportBug = ({ appNames }: ReportBugProps) => {
         <input
           type="email"
           placeholder="Enter your email"
-          className={`input input-bordered text-gray-06 placeholder:text-gray-03 p1 w-full focus:outline-8" ${
+          className={`input input-bordered text-gray-06 placeholder:text-gray-03 p1 w-full focus:outline-8 ${
             validateEmail() == null ? 'input-warning' : ''
           }`}
           onChange={(event) => setEmail(event.target.value)}
@@ -90,12 +96,15 @@ export const ReportBug = ({ appNames }: ReportBugProps) => {
             readOnly
           />
           <ul
+            role="listbox"
             tabIndex={0}
             className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
           >
-            {appNames.map((appName, i) => (
-              <li key={i}>
-                <a onClick={(_) => setAppName(appName)}>{appName}</a>
+            {appNames.map((appName) => (
+              <li key={appName} role="option" aria-selected={false}>
+                <button type="button" onClick={() => setAppName(appName)}>
+                  {appName}
+                </button>
               </li>
             ))}
           </ul>
@@ -105,7 +114,7 @@ export const ReportBug = ({ appNames }: ReportBugProps) => {
         <h6 className="text-gray-05">Description</h6>
         <div className="form-control">
           <textarea
-            className="textarea textarea-bordered h-24 text-gray-06 placeholder:text-gray-03 h6"
+            className="textarea textarea-bordered h-24 text-gray-06 placeholder:text-gray-03 p1 w-full"
             placeholder="What is going wrong?"
             onChange={(event) => {
               setDesc(event.target.value);
@@ -147,6 +156,8 @@ export const ReportBug = ({ appNames }: ReportBugProps) => {
           </svg>
           <span>Request Submitted!</span>
           <button
+            type="button"
+            aria-label="Close notification"
             onClick={() => setSucceeded(false)}
             className="btn btn-circle btn-xs btn-outline"
           >
@@ -168,24 +179,24 @@ export const ReportBug = ({ appNames }: ReportBugProps) => {
         </div>
       )}
       {error && (
-        <div className="alert alert-success">
-          <div className="alert alert-error">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="stroke-current shrink-0 h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            <span>Request failed, please try again later.</span>
-          </div>
+        <div className="alert alert-error">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="stroke-current shrink-0 h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          <span>Request failed, please try again later.</span>
           <button
+            type="button"
+            aria-label="Close notification"
             onClick={() => setError(false)}
             className="btn btn-circle btn-xs btn-outline"
           >

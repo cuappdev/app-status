@@ -1,6 +1,6 @@
 import { DEFAULT_APP_IMG } from '@/constants';
-import { App } from '@/models/App';
-import { Severity } from '@/models/DownInterval';
+import { App } from '@/types/App';
+import { Severity } from '@/types/DownInterval';
 import Image from 'next/image';
 import { Dispatch, SetStateAction } from 'react';
 import OperationalIcon from './svg/OperationalIcon';
@@ -26,32 +26,30 @@ interface AppRowProps {
   setSelectedApp: Dispatch<SetStateAction<App | undefined>>;
 }
 
-export default function Overview(appProps: AppProps) {
-  const operationalApps = appProps.apps.filter((app) => {
+export default function Overview({
+  apps,
+  selectedApp,
+  setSelectedApp,
+}: AppProps) {
+  const operationalApps: App[] = [];
+  const partialOutageApps: App[] = [];
+  const totalOutageApps: App[] = [];
+
+  apps.forEach((app) => {
     if (app.downIntervals.length === 0) {
-      return true;
+      operationalApps.push(app);
+      return;
     }
     const lastInterval = app.downIntervals[app.downIntervals.length - 1];
-    if (lastInterval) {
-      return lastInterval.endTime;
+    if (lastInterval && lastInterval.endTime) {
+      operationalApps.push(app);
+    } else if (lastInterval && lastInterval.severity === Severity.Medium) {
+      partialOutageApps.push(app);
+    } else if (lastInterval && lastInterval.severity === Severity.High) {
+      totalOutageApps.push(app);
+    } else {
+      operationalApps.push(app); // fallback covering unexpected severities
     }
-    return false;
-  });
-
-  const partialOutageApps = appProps.apps.filter((app) => {
-    const lastInterval = app.downIntervals[app.downIntervals.length - 1];
-    if (lastInterval) {
-      return lastInterval.severity === Severity.Medium && !lastInterval.endTime;
-    }
-    return false;
-  });
-
-  const totalOutageApps = appProps.apps.filter((app) => {
-    const lastInterval = app.downIntervals[app.downIntervals.length - 1];
-    if (lastInterval) {
-      return lastInterval.severity === Severity.High && !lastInterval.endTime;
-    }
-    return false;
   });
 
   return (
@@ -73,48 +71,48 @@ export default function Overview(appProps: AppProps) {
           <AppRow
             status={Status.Operational}
             apps={operationalApps}
-            selectedApp={appProps.selectedApp}
-            setSelectedApp={appProps.setSelectedApp}
+            selectedApp={selectedApp}
+            setSelectedApp={setSelectedApp}
           />
         )}
         {partialOutageApps.length !== 0 && (
           <AppRow
             status={Status.Partial}
             apps={partialOutageApps}
-            selectedApp={appProps.selectedApp}
-            setSelectedApp={appProps.setSelectedApp}
+            selectedApp={selectedApp}
+            setSelectedApp={setSelectedApp}
           />
         )}
         {totalOutageApps.length !== 0 && (
           <AppRow
             status={Status.Total}
             apps={totalOutageApps}
-            selectedApp={appProps.selectedApp}
-            setSelectedApp={appProps.setSelectedApp}
+            selectedApp={selectedApp}
+            setSelectedApp={setSelectedApp}
           />
-        )}{' '}
+        )}
       </div>
     </div>
   );
 }
 
-function AppRow(appRowProps: AppRowProps) {
+function AppRow({ status, apps, selectedApp, setSelectedApp }: AppRowProps) {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-row items-center gap-2">
-        {appRowProps.status === Status.Operational && (
+        {status === Status.Operational && (
           <>
             <OperationalIcon />
             <h6>Operational</h6>
           </>
         )}
-        {appRowProps.status === Status.Partial && (
+        {status === Status.Partial && (
           <>
             <WarningIcon />
             <h6>Partial Outage</h6>
           </>
         )}
-        {appRowProps.status === Status.Total && (
+        {status === Status.Total && (
           <>
             <OutageIcon />
             <h6>Total Outage</h6>
@@ -122,7 +120,7 @@ function AppRow(appRowProps: AppRowProps) {
         )}
       </div>
       <div className="flex flex-row flex-wrap gap-2">
-        {appRowProps.apps.map((app) => {
+        {apps.map((app) => {
           return (
             <Image
               key={app.id}
@@ -130,9 +128,9 @@ function AppRow(appRowProps: AppRowProps) {
               alt={app.name}
               width={1024}
               height={1024}
-              onClick={() => appRowProps.setSelectedApp(app)}
-              className={`w-16 h-16 rounded-xl sm-desktop:w-10 sm-desktop:h-10 sm-desktop:rounded-lg app-icon-shadow ${
-                appRowProps.selectedApp === app
+              onClick={() => setSelectedApp(app)}
+              className={`w-16 h-16 rounded-xl sm-desktop:w-10 sm-desktop:h-10 sm-desktop:rounded-lg app-icon-shadow cursor-pointer hover:opacity-80 transition-opacity ${
+                selectedApp?.id === app.id
                   ? 'max-sm-desktop:selected-icon-highlight'
                   : ''
               }`}

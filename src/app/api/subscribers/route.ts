@@ -1,15 +1,18 @@
 import { NextResponse } from 'next/server';
-import SubscriberController from '../../../server/subscribers/controllers';
-import { successJson } from '../../../server/utils/jsonResponses';
-import { dbConnect } from '../../../server/database';
+import SubscriberController from '@/app/api/subscribers/controllers';
+import { successJson } from '@/app/api/utils/jsonResponses';
+import { dbConnect } from '@/app/api/database';
 
 export async function GET() {
   await dbConnect();
   try {
     const subscribers = await SubscriberController.getSubscribers();
     return NextResponse.json(successJson(subscribers), { status: 200 });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  } catch (err: unknown) {
+    return NextResponse.json(
+      { error: err instanceof Error ? err.message : 'Unknown error' },
+      { status: 500 },
+    );
   }
 }
 
@@ -21,7 +24,10 @@ export async function POST(req: Request) {
     return NextResponse.json(successJson('Subscriber created'), {
       status: 201,
     });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  } catch (err: unknown) {
+    return NextResponse.json(
+      { error: err instanceof Error ? err.message : 'Unknown error' },
+      { status: 500 },
+    );
   }
 }

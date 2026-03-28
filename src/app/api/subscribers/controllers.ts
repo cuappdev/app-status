@@ -24,9 +24,11 @@ const subscribeToApp = async (email: string, appName: string) => {
   }
 };
 
-export default {
+const subscriberControllers = {
   getSubscribers,
   getSubscriberByEmail,
   createSubscriber,
   subscribeToApp,
 };
+
+export default subscriberControllers;

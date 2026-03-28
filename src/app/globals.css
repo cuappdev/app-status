@@ -1,37 +1,37 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "daisyui" {
   themes: false;
 }
 @plugin "daisyui/theme" {
-  name: "light";
+  name: 'light';
   default: true;
-  info: #EFF1F4;
-  success: #3AC078;
-  warning: #EAA800;
-  error: #FF6860;
+  info: '#eff1f4';
+  success: '#3ac078';
+  warning: '#eaa800';
+  error: '#ff6860';
 }
 
 @theme {
   --font-pro-disp-sb: 'pro-disp-sb', verdana;
   --font-pro-disp-md: 'pro-disp-md', verdana;
-  --font-pro-text-md: 'pro-text-md', verdana;
-  --font-pro-text-rg: 'pro-text-rg', verdana;
+  --font-pro-text-md: 'pro-text', verdana;
+  --font-pro-text-rg: 'pro-text', verdana;
   --font-compact-disp-rg: 'compact-disp-rg', verdana;
 
-  --color-success: #3AC078;
-  --color-warning: #EAA800;
-  --color-failure: #FF6860;
-  --color-ruby: #CA4238;
-  --color-highlight: #BACCFA;
-  --color-gray-08: #24292E;
-  --color-gray-07: #2F363D;
-  --color-gray-06: #444D56;
+  --color-success: #3ac078;
+  --color-warning: #eaa800;
+  --color-failure: #ff6860;
+  --color-ruby: #ca4238;
+  --color-highlight: #baccfa;
+  --color-gray-08: #24292e;
+  --color-gray-07: #2f363d;
+  --color-gray-06: #444d56;
   --color-gray-05: #586069;
-  --color-gray-04: #6A737D;
-  --color-gray-03: #959DA5;
-  --color-gray-00: #EFF1F4;
-  --color-stroke-colors: #E5E6EA;
-  --color-gray-bug: #F0F4F8;
+  --color-gray-04: #6a737d;
+  --color-gray-03: #959da5;
+  --color-gray-00: #eff1f4;
+  --color-stroke-colors: #e5e6ea;
+  --color-gray-bug: #f0f4f8;
 
   --spacing-13: 52px;
   --spacing-15: 60px;
@@ -53,11 +53,7 @@
   src: url('../../public/SF-Pro-Display-Medium.otf');
 }
 @font-face {
-  font-family: 'pro-text-md';
-  src: url('../../public/SF-Pro-Text-Regular.otf');
-}
-@font-face {
-  font-family: 'pro-text-rg';
+  font-family: 'pro-text';
   src: url('../../public/SF-Pro-Text-Regular.otf');
 }
 @font-face {
@@ -66,25 +62,32 @@
 }
 
 @layer base {
-  h1 {
-    @apply font-pro-disp-sb text-[3rem] leading-[4rem];
+  h1,
+  .h1 {
+    @apply font-pro-disp-sb text-[3rem] leading-16;
   }
-  h2 {
-    @apply font-pro-disp-sb text-[2.25rem] leading-[2.25rem];
+  h2,
+  .h2 {
+    @apply font-pro-disp-sb text-[2.25rem] leading-9;
   }
-  h3 {
-    @apply font-pro-disp-sb text-[1.5rem] leading-[1.5rem];
+  h3,
+  .h3 {
+    @apply font-pro-disp-sb text-[1.5rem] leading-6;
   }
-  h4 {
+  h4,
+  .h4 {
     @apply font-pro-disp-md text-[1.5rem] leading-9;
   }
-  h5 {
+  h5,
+  .h5 {
     @apply font-pro-disp-md text-[1.25rem] leading-7;
   }
-  h6 {
+  h6,
+  .h6 {
     @apply font-pro-text-md text-[1rem] leading-6;
   }
 }
+
 @layer components {
   .p1 {
     @apply font-pro-text-rg text-[1rem] leading-6;
@@ -94,24 +97,6 @@
   }
   .p3 {
     @apply font-pro-text-rg text-[0.75rem] leading-5;
-  }
-  .h1 {
-    @apply font-pro-disp-sb text-[3rem] leading-[4rem];
-  }
-  .h2 {
-    @apply font-pro-disp-sb text-[2.25rem] leading-[2.25rem];
-  }
-  .h3 {
-    @apply font-pro-disp-sb text-[1.5rem] leading-[1.5rem];
-  }
-  .h4 {
-    @apply font-pro-disp-md text-[1.5rem] leading-9;
-  }
-  .h5 {
-    @apply font-pro-disp-md text-[1.25rem] leading-7;
-  }
-  .h6 {
-    @apply font-pro-text-md text-[1rem] leading-6;
   }
   .app-icon-shadow {
     @apply shadow-[0_0_10px_0_rgba(36,41,46,0.05)];
