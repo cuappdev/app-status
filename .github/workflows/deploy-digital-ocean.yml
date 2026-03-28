@@ -3,9 +3,9 @@ name: Digital Ocean deployment
 on:
   push:
     paths:
-      - "backend/**"
+      - 'backend/**'
     branches:
-      - "main"
+      - 'main'
 
 jobs:
   setup-build-publish-deploy:
